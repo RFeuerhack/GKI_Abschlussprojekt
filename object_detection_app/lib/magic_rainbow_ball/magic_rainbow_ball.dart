@@ -7,11 +7,55 @@ import 'ball.dart';
 import 'move.dart';
 import 'ring.dart';
 
+main() {
+  print(MagicRainbowBall.solved().isConsistent());
+}
+
 class MagicRainbowBall {
   Map<Ring, Ball> _ballWith = Map();
   Map<Ball, Ring> _ringWith = Map();
 
-  MagicRainbowBall() {
+  MagicRainbowBall(
+    Ball inWhiteRing,
+    Ball inBlackRing,
+    Ball inLightGreenRing,
+    Ball inDarkGreenRing,
+    Ball inLightBlueRing,
+    Ball inDarkBlueRing,
+    Ball inYellowRing,
+    Ball inOrangeRing,
+    Ball inRedRing,
+    Ball inPinkRing,
+    Ball inPurpleRing,
+    Ball inCyanRing,
+  ) {
+    _ballWith[Ring.WHITE] = inWhiteRing;
+    _ballWith[Ring.BLACK] = inBlackRing;
+    _ballWith[Ring.LIGHT_GREEN] = inLightGreenRing;
+    _ballWith[Ring.DARK_GREEN] = inDarkGreenRing;
+    _ballWith[Ring.LIGHT_BLUE] = inLightBlueRing;
+    _ballWith[Ring.DARK_BLUE] = inDarkBlueRing;
+    _ballWith[Ring.YELLOW] = inYellowRing;
+    _ballWith[Ring.ORANGE] = inOrangeRing;
+    _ballWith[Ring.RED] = inRedRing;
+    _ballWith[Ring.PINK] = inPinkRing;
+    _ballWith[Ring.PURPLE] = inPurpleRing;
+    _ballWith[Ring.CYAN] = inCyanRing;
+    _ringWith[inWhiteRing] = Ring.WHITE;
+    _ringWith[inBlackRing] = Ring.BLACK;
+    _ringWith[inLightGreenRing] = Ring.LIGHT_GREEN;
+    _ringWith[inDarkGreenRing] = Ring.DARK_GREEN;
+    _ringWith[inLightBlueRing] = Ring.LIGHT_BLUE;
+    _ringWith[inDarkBlueRing] = Ring.DARK_BLUE;
+    _ringWith[inYellowRing] = Ring.YELLOW;
+    _ringWith[inOrangeRing] = Ring.ORANGE;
+    _ringWith[inRedRing] = Ring.RED;
+    _ringWith[inPinkRing] = Ring.PINK;
+    _ringWith[inPurpleRing] = Ring.PURPLE;
+    _ringWith[inCyanRing] = Ring.CYAN;
+  }
+
+  MagicRainbowBall.solved() {
     _ballWith[Ring.WHITE] = Ball.EMPTY;
     _ballWith[Ring.BLACK] = Ball.BLACK;
     _ballWith[Ring.LIGHT_GREEN] = Ball.LIGHT_GREEN;
@@ -71,21 +115,21 @@ class MagicRainbowBall {
   int manhattanDistance() => Ball.values.fold(0, (distance, ball) => distance += _ringWith[ball].distance(Ring.values[ball.index]));
 
   Map<String, dynamic> toJson() => {
-        Ring.values[0].toString(): _ballWith[Ring.values[0]],
-        Ring.values[1].toString(): _ballWith[Ring.values[1]],
-        Ring.values[2].toString(): _ballWith[Ring.values[2]],
-        Ring.values[3].toString(): _ballWith[Ring.values[3]],
-        Ring.values[4].toString(): _ballWith[Ring.values[4]],
-        Ring.values[5].toString(): _ballWith[Ring.values[5]],
-        Ring.values[6].toString(): _ballWith[Ring.values[6]],
-        Ring.values[7].toString(): _ballWith[Ring.values[7]],
-        Ring.values[8].toString(): _ballWith[Ring.values[8]],
-        Ring.values[9].toString(): _ballWith[Ring.values[9]],
-        Ring.values[10].toString(): _ballWith[Ring.values[10]],
-        Ring.values[11].toString(): _ballWith[Ring.values[11]],
+        '\"' + Ring.values[0].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[0]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[1].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[1]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[2].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[2]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[3].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[3]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[4].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[4]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[5].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[5]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[6].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[6]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[7].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[7]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[8].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[8]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[9].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[9]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[10].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[10]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
+        '\"' + Ring.values[11].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[11]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
       };
 
-  List<Move> generateSolution() {
+  Future<List<Move>> generateSolution() async {
     PriorityQueue<Tuple3<MagicRainbowBall, int, List<Move>>> priorityQueue = PriorityQueue((mrb1, mrb2) => mrb1.item2.compareTo(mrb2.item2));
     priorityQueue.add(Tuple3(this, manhattanDistance() + 0, []));
     Tuple3<MagicRainbowBall, int, List<Move>> first = priorityQueue.first;
@@ -100,5 +144,20 @@ class MagicRainbowBall {
       });
     }
     return first.item3;
+  }
+
+  bool isConsistent() {
+    if (Ring.values.any((ring) => _ringWith[_ballWith[ring]] != ring)) return false;
+    if (Ball.values.any((ball) => _ballWith[_ringWith[ball]] != ball)) return false;
+    Map<Ring, int> ringCounter = {};
+    Ring.values.forEach((ring) => ringCounter[ring] = 0);
+    print(ringCounter.toString());
+    Ball.values.forEach((ball) => ringCounter[_ringWith[ball]]++);
+    if (ringCounter.entries.any((entry) => entry.value != 1)) return false;
+    Map<Ball, int> ballCounter = {};
+    Ball.values.forEach((ball) => ballCounter[ball] = 0);
+    Ring.values.forEach((ring) => ballCounter[_ballWith[ring]]++);
+    if (ballCounter.entries.any((entry) => entry.value != 1)) return false;
+    return true;
   }
 }

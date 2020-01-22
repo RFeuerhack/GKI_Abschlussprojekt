@@ -10,19 +10,21 @@ class ObjectDetectionCamera extends StatefulWidget {
   final CameraController cameraController;
   final Function onDetection;
   final double threshhold;
+  final Function onNoDetection;
 
-  ObjectDetectionCamera(this.cameraController, this.onDetection, this.threshhold);
+  ObjectDetectionCamera(this.cameraController, this.onDetection, this.threshhold, [this.onNoDetection]);
 
   @override
-  _ObjectDetectionCameraState createState() => _ObjectDetectionCameraState(cameraController, onDetection, threshhold);
+  _ObjectDetectionCameraState createState() => _ObjectDetectionCameraState(cameraController, onDetection, threshhold, onNoDetection);
 }
 
 class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
   CameraController cameraController;
   Function onDetection;
   double threshhold;
+  Function onNoDetection;
 
-  _ObjectDetectionCameraState(this.cameraController, this.onDetection, this.threshhold);
+  _ObjectDetectionCameraState(this.cameraController, this.onDetection, this.threshhold, this.onNoDetection);
 
   bool isDetecting = false;
   List<Detection> detections = [];
@@ -45,6 +47,10 @@ class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
             });
             if (detections.length != 0) {
               onDetection(image, this.detections);
+            } else {
+              if(onNoDetection != null) {
+                onNoDetection(image);
+              }
             }
           }
         });

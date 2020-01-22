@@ -3,7 +3,7 @@ import 'package:delta_e/delta_e.dart';
 import 'package:flutter/material.dart' as flutter;
 import 'package:image/image.dart';
 
-RubicsCubeSide parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int width, int height) {
+RubicsCubeSideState parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int width, int height) {
   Image rgbImage = convertYUV420toImageColor(image);
 
   LabColor topLeftHue = getLabColorFromRotatedPosition(
@@ -60,7 +60,7 @@ RubicsCubeSide parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int w
     image.height,
   );
 
-  return RubicsCubeSide.fromLabColors(
+  return RubicsCubeSideState.fromLabColors(
     topLeftHue,
     topMidHue,
     topRightHue,
@@ -103,6 +103,8 @@ extension on RubicsCubeColor {
   LabColor get labColor => hues[this];
 
   flutter.Color color() => colors[this];
+
+  String toJson() => this.toString().replaceFirst("RubicsCubeColor.", "").toLowerCase();
 }
 
 Map<RubicsCubeColor, flutter.Color> colors = {
@@ -123,7 +125,34 @@ Map<RubicsCubeColor, LabColor> hues = {
   RubicsCubeColor.RED: LabColor.fromRGBValue(4289010460, RGBStructure.argb),
 };
 
-class RubicsCubeSide {
+class RubicsCubeState {
+  RubicsCubeSideState blue;
+  RubicsCubeSideState orange;
+  RubicsCubeSideState green;
+  RubicsCubeSideState red;
+  RubicsCubeSideState yellow;
+  RubicsCubeSideState white;
+
+  RubicsCubeState(
+    this.blue,
+    this.orange,
+    this.green,
+    this.red,
+    this.yellow,
+    this.white,
+  );
+
+  Map<String, dynamic> toJson() => {
+        '\"' + "blue" + '\"': blue.toJson(),
+        '\"' + "orange" + '\"': orange.toJson(),
+        '\"' + "green" + '\"': green.toJson(),
+        '\"' + "red" + '\"': red.toJson(),
+        '\"' + "yellow" + '\"': yellow.toJson(),
+        '\"' + "white" + '\"': white.toJson(),
+      };
+}
+
+class RubicsCubeSideState {
   RubicsCubeColor topLeft;
   RubicsCubeColor topMid;
   RubicsCubeColor topRight;
@@ -134,7 +163,7 @@ class RubicsCubeSide {
   RubicsCubeColor bottomMid;
   RubicsCubeColor bottomRight;
 
-  RubicsCubeSide(
+  RubicsCubeSideState(
     this.topLeft,
     this.topMid,
     this.topRight,
@@ -146,7 +175,19 @@ class RubicsCubeSide {
     this.bottomRight,
   );
 
-  RubicsCubeSide.fromLabColors(
+  Map<String, dynamic> toJson() => {
+        '\"' + "top_left" + '\"': '\"' + topLeft.toJson()+ '\"',
+        '\"' + "top_mid" + '\"': '\"' + topMid.toJson()+ '\"',
+        '\"' + "top_right" + '\"': '\"' + topRight.toJson()+ '\"',
+        '\"' + "left" + '\"': '\"' + left.toJson()+ '\"',
+        '\"' + "center" + '\"': '\"' + center.toJson()+ '\"',
+        '\"' + "right" + '\"': '\"' + right.toJson()+ '\"',
+        '\"' + "bottom_left" + '\"': '\"' + bottomLeft.toJson()+ '\"',
+        '\"' + "bottom_mid" + '\"': '\"' + bottomMid.toJson()+ '\"',
+        '\"' + "bottom_right" + '\"': '\"' + bottomRight.toJson()+ '\"',
+      };
+
+  RubicsCubeSideState.fromLabColors(
     LabColor topLeftHue,
     LabColor topMidHue,
     LabColor topRightHue,

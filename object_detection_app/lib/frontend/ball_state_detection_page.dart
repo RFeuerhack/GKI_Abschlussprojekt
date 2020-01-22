@@ -2,10 +2,11 @@ import 'package:camera/camera.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:object_detection_app/magic_rainbow_ball/ball.dart';
+import 'package:object_detection_app/magic_rainbow_ball/magic_rainbow_ball.dart';
+import 'package:object_detection_app/magic_rainbow_ball/move.dart';
 import 'package:object_detection_app/magic_rainbow_ball/ring.dart';
 import 'package:object_detection_app/reusable/object_detection_camera.dart';
 import 'package:object_detection_app/util/detection.dart';
-import 'package:random_color/random_color.dart';
 import 'package:tuple/tuple.dart';
 
 class BallStateDetectionPage extends StatefulWidget {
@@ -85,12 +86,32 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
   _BallStateDetectionPageState(this.cameraController) {
     Ring.values.forEach((ring) {
       ballState[ring] = null;
-      lockedRings[ring] = false;
+      lockedRings[ring] = true;
     });
   }
 
   Map<Ring, Ball> ballState = Map();
   Map<Ring, bool> lockedRings = Map();
+
+  String ballToString(Ball ball) {
+    String name1 = ball.toString().replaceAll("Ball.", "").toLowerCase();
+    String name = name1[0].toUpperCase() + name1.substring(1);
+    if (name.contains("_")) {
+      int i = name.indexOf("_");
+      name = name.substring(0, i) + " " + name[i + 1].toUpperCase() + name.substring(i + 2);
+    }
+    return name;
+  }
+
+  String ringToString(Ring ring) {
+    String name1 = ring.toString().replaceAll("Ring.", "").toLowerCase();
+    String name = name1[0].toUpperCase() + name1.substring(1);
+    if (name.contains("_")) {
+      int i = name.indexOf("_");
+      name = name.substring(0, i) + " " + name[i + 1].toUpperCase() + name.substring(i + 2);
+    }
+    return name;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +150,7 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
               });
             });
           },
-          0.5,
+          0.8,
         ),
         Align(
           alignment: Alignment.centerRight,
@@ -145,6 +166,39 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
                             setState(() {
                               lockedRings[ringBall.key] = !lockedRings[ringBall.key];
                             });
+                          },
+                          onLongPress: () {
+                            showDialog(
+                                context: context,
+                                child: AlertDialog(
+                                  title: Text("Ballfarbe auswählen\nAktuell: " + ballToString(ballState[ringBall.key])),
+                                  content: Column(
+                                    children: List.generate(Ball.values.length, (index) {
+                                      Ball ball = Ball.values[index];
+
+                                      return Column(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  ballState[ringBall.key] = ball;
+                                                  lockedRings[ringBall.key] = true;
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(ballToString(ball), style: TextStyle(color: ball.color == Colors.white ? Colors.black : ball.color))),
+                                          SizedBox(height: 10),
+                                        ],
+                                      );
+                                    }),
+                                  ),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Abbrechen"),
+                                      onPressed: () => Navigator.of(context).pop(),
+                                    )
+                                  ],
+                                ));
                           },
                           child: CustomPaint(
                             painter: RingStatePainter(ringBall.key.color, ringBall.value.color, lockedRings[ringBall.key]),
@@ -178,16 +232,133 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              RaisedButton(
-                child: Text("Prüfen"),
-              ),
-              RaisedButton(
-                child: Text("Lösen"),
-              ),
-              RaisedButton(
-                child: Text("JSON in Zwischenablage"),
+              FlatButton(
+                child: Text("Prüfen", style: TextStyle(color: Colors.white)),
                 onPressed: () {
-                  ClipboardManager.copyToClipBoard("Magic Rainbow Ball JSON").then((result) {
+                  if (ballState[Ring.WHITE] == null || ballState[Ring.BLACK] == null || ballState[Ring.LIGHT_GREEN] == null || ballState[Ring.DARK_GREEN] == null || ballState[Ring.LIGHT_BLUE] == null || ballState[Ring.DARK_BLUE] == null || ballState[Ring.YELLOW] == null || ballState[Ring.ORANGE] == null || ballState[Ring.RED] == null || ballState[Ring.PINK] == null || ballState[Ring.PURPLE] == null || ballState[Ring.CYAN] == null) {
+                    return;
+                  }
+                  MagicRainbowBall mrb = MagicRainbowBall(
+                    ballState[Ring.WHITE],
+                    ballState[Ring.BLACK],
+                    ballState[Ring.LIGHT_GREEN],
+                    ballState[Ring.DARK_GREEN],
+                    ballState[Ring.LIGHT_BLUE],
+                    ballState[Ring.DARK_BLUE],
+                    ballState[Ring.YELLOW],
+                    ballState[Ring.ORANGE],
+                    ballState[Ring.RED],
+                    ballState[Ring.PINK],
+                    ballState[Ring.PURPLE],
+                    ballState[Ring.CYAN],
+                  );
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text("Ok"),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                          title: Text("Ist das erkannte Modell konsistent?"),
+                          content: mrb.isConsistent()
+                              ? Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                  size: 50,
+                                )
+                              : Icon(
+                                  Icons.clear,
+                                  color: Colors.red,
+                                  size: 50,
+                                ),
+                        );
+                      });
+                },
+              ),
+              FlatButton(
+                child: Text("Lösen", style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  MagicRainbowBall mrb = MagicRainbowBall(
+                    ballState[Ring.WHITE],
+                    ballState[Ring.BLACK],
+                    ballState[Ring.LIGHT_GREEN],
+                    ballState[Ring.DARK_GREEN],
+                    ballState[Ring.LIGHT_BLUE],
+                    ballState[Ring.DARK_BLUE],
+                    ballState[Ring.YELLOW],
+                    ballState[Ring.ORANGE],
+                    ballState[Ring.RED],
+                    ballState[Ring.PINK],
+                    ballState[Ring.PURPLE],
+                    ballState[Ring.CYAN],
+                  );
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text("Ok"),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                          title: Text("Lösungsweg"),
+                          content: FutureBuilder(
+                            future: mrb.generateSolution(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<Move> solution = snapshot.data;
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: List.generate(solution.length, (index) {
+                                      Move move = solution[index];
+                                      return Row(
+                                        children: <Widget>[
+                                          SizedBox(width: 10),
+                                          Text(ballToString(move.ball), style: TextStyle(color: move.ball.color)),
+                                          SizedBox(width: 10),
+                                          Text(":"),
+                                          SizedBox(width: 10),
+                                          Text(ringToString(move.from), style: TextStyle(color: move.from.color)),
+                                          SizedBox(width: 10),
+                                          Icon(Icons.arrow_forward),
+                                          SizedBox(width: 10),
+                                          Text(ringToString(move.to), style: TextStyle(color: move.to.color)),
+                                        ],
+                                      );
+                                    }),
+                                  ),
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                        );
+                      });
+                },
+              ),
+              FlatButton(
+                child: Text("Exportieren", style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  MagicRainbowBall mrb = MagicRainbowBall(
+                    ballState[Ring.WHITE],
+                    ballState[Ring.BLACK],
+                    ballState[Ring.LIGHT_GREEN],
+                    ballState[Ring.DARK_GREEN],
+                    ballState[Ring.LIGHT_BLUE],
+                    ballState[Ring.DARK_BLUE],
+                    ballState[Ring.YELLOW],
+                    ballState[Ring.ORANGE],
+                    ballState[Ring.RED],
+                    ballState[Ring.PINK],
+                    ballState[Ring.PURPLE],
+                    ballState[Ring.CYAN],
+                  );
+                  ClipboardManager.copyToClipBoard(mrb.toJson().toString()).then((result) {
                     final snackBar = SnackBar(
                       content: Text("JSON in Zwischenablage kopiert"),
                     );
@@ -224,7 +395,7 @@ class RingStatePainter extends CustomPainter {
 }
 
 Map<Ball, Color> colors = {
-  Ball.EMPTY: Colors.transparent,
+  Ball.EMPTY: Colors.white,
   Ball.BLACK: Colors.black,
   Ball.LIGHT_GREEN: Colors.lightGreen,
   Ball.DARK_GREEN: Colors.green,
