@@ -5,10 +5,11 @@ import 'package:object_detection_app/magic_rainbow_ball/ball.dart';
 import 'package:object_detection_app/magic_rainbow_ball/magic_rainbow_ball.dart';
 import 'package:object_detection_app/magic_rainbow_ball/move.dart';
 import 'package:object_detection_app/magic_rainbow_ball/ring.dart';
-import 'package:object_detection_app/reusable/object_detection_camera.dart';
+import 'package:object_detection_app/frontend/object_detection_camera.dart';
 import 'package:object_detection_app/util/detection.dart';
 import 'package:tuple/tuple.dart';
 
+/// ball state detection page
 class BallStateDetectionPage extends StatefulWidget {
   final CameraController cameraController;
 
@@ -18,6 +19,7 @@ class BallStateDetectionPage extends StatefulWidget {
   _BallStateDetectionPageState createState() => _BallStateDetectionPageState(cameraController);
 }
 
+/// assigns every possible ball detection (assuming the model is right) a Ball from the Ball enum
 Ball ballFromDetection(Detection detection) {
   switch (detection.detectedClass) {
     case "empty":
@@ -49,6 +51,7 @@ Ball ballFromDetection(Detection detection) {
   }
 }
 
+/// assigns every possible ring detection (assuming the model is right) a Ring from the Ring enum
 Ring ringFromDetection(Detection detection) {
   switch (detection.detectedClass) {
     case "whitering":
@@ -93,6 +96,7 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
   Map<Ring, Ball> ballState = Map();
   Map<Ring, bool> lockedRings = Map();
 
+  /// converts a Ball to a String
   String ballToString(Ball ball) {
     String name1 = ball.toString().replaceAll("Ball.", "").toLowerCase();
     String name = name1[0].toUpperCase() + name1.substring(1);
@@ -103,6 +107,7 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
     return name;
   }
 
+  /// converts a Ring to a String
   String ringToString(Ring ring) {
     String name1 = ring.toString().replaceAll("Ring.", "").toLowerCase();
     String name = name1[0].toUpperCase() + name1.substring(1);
@@ -395,7 +400,7 @@ class RingStatePainter extends CustomPainter {
 }
 
 Map<Ball, Color> colors = {
-  Ball.EMPTY: Colors.white,
+  Ball.EMPTY: Colors.grey,
   Ball.BLACK: Colors.black,
   Ball.LIGHT_GREEN: Colors.lightGreen,
   Ball.DARK_GREEN: Colors.green,

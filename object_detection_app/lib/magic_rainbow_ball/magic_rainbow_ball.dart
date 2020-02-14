@@ -7,14 +7,14 @@ import 'ball.dart';
 import 'move.dart';
 import 'ring.dart';
 
-main() {
-  print(MagicRainbowBall.solved().isConsistent());
-}
-
+/// represents a magic rainbow ball
 class MagicRainbowBall {
+  /// contains information regarding: which ball is in which ring (reversed map of _ringWith)
   Map<Ring, Ball> _ballWith = Map();
+  /// contains informatin regarding: which ring is in which ball (reversed map of _ballWith)
   Map<Ball, Ring> _ringWith = Map();
 
+  /// creates MagicRainbowBall by using information which ball is in which ring
   MagicRainbowBall(
     Ball inWhiteRing,
     Ball inBlackRing,
@@ -55,6 +55,7 @@ class MagicRainbowBall {
     _ringWith[inCyanRing] = Ring.CYAN;
   }
 
+  /// creates a solved MagicRainbowBall
   MagicRainbowBall.solved() {
     _ballWith[Ring.WHITE] = Ball.EMPTY;
     _ballWith[Ring.BLACK] = Ball.BLACK;
@@ -82,12 +83,15 @@ class MagicRainbowBall {
     _ringWith[Ball.CYAN] = Ring.CYAN;
   }
 
+  /// creates a deep copy of a MagicRainbowBall
   MagicRainbowBall.copy(MagicRainbowBall magicRainbowBall)
       : _ballWith = Map.from(magicRainbowBall._ballWith),
         _ringWith = Map.from(magicRainbowBall._ringWith);
 
+  /// returns a list of all possible moves
   List<Move> possibleMoves() => _ringWith[Ball.EMPTY].neighbors.map((e) => Move(_ballWith[e], e, _ringWith[Ball.EMPTY])).toList();
 
+  /// applies the given Move to the MagicRainbowBall
   void move(Move move) {
     assert(move.ball == _ballWith[move.from]);
     assert(_ballWith[move.to] == Ball.EMPTY);
@@ -97,8 +101,10 @@ class MagicRainbowBall {
     _ringWith[Ball.EMPTY] = move.from;
   }
 
+  /// returns true if the MagicRainbowBall is solved
   bool isSolved() => !Ring.values.any((ring) => ring.index != _ballWith[ring].index);
 
+  /// shuffles the MagicRainbowBall
   void shuffle(Random random) {
     List<Ball> balls = Ball.values.toList()..shuffle(random);
     List<Ring> rings = Ring.values.toList()..shuffle(random);
@@ -110,10 +116,13 @@ class MagicRainbowBall {
     }
   }
 
+  /// creates a deep copy of a MagicRainbowBall and applies the given Move to the copy
   MagicRainbowBall copyAndMove(Move move) => MagicRainbowBall.copy(this)..move(move);
 
+  /// calculates the manhattan distance of the MagicRainbowBall
   int manhattanDistance() => Ball.values.fold(0, (distance, ball) => distance += _ringWith[ball].distance(Ring.values[ball.index]));
 
+  /// converts the MagicRainbowBall to json
   Map<String, dynamic> toJson() => {
         '\"' + Ring.values[0].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[0]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
         '\"' + Ring.values[1].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[1]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
@@ -129,6 +138,7 @@ class MagicRainbowBall {
         '\"' + Ring.values[11].toString().replaceFirst("Ring.", "").toLowerCase() + '\"': '\"' + _ballWith[Ring.values[11]].toString().replaceFirst("Ball.", "").toLowerCase() + '\"',
       };
 
+  /// creates a list with moves representing a possible solution path
   Future<List<Move>> generateSolution() async {
     PriorityQueue<Tuple3<MagicRainbowBall, int, List<Move>>> priorityQueue = PriorityQueue((mrb1, mrb2) => mrb1.item2.compareTo(mrb2.item2));
     priorityQueue.add(Tuple3(this, manhattanDistance() + 0, []));
@@ -146,6 +156,7 @@ class MagicRainbowBall {
     return first.item3;
   }
 
+  /// returns true if the state of the MagicRainbowBall is possible in reality
   bool isConsistent() {
     if (Ring.values.any((ring) => _ringWith[_ballWith[ring]] != ring)) return false;
     if (Ball.values.any((ball) => _ballWith[_ringWith[ball]] != ball)) return false;

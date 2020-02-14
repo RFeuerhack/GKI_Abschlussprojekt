@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as flutter;
 
+/// represents the balls of a magic rainbow ball
 enum Ball {
   EMPTY,
   BLACK,
@@ -15,8 +16,9 @@ enum Ball {
   CYAN,
 }
 
+/// assigns every Ball a flutter color, which is usable in the frontend
 Map<Ball, flutter.Color> colors = {
-  Ball.EMPTY : flutter.Colors.transparent,
+  Ball.EMPTY : flutter.Colors.grey,
   Ball.BLACK : flutter.Colors.black,
   Ball.LIGHT_GREEN : flutter.Colors.lightGreen,
   Ball.DARK_GREEN : flutter.Colors.green,
@@ -30,6 +32,8 @@ Map<Ball, flutter.Color> colors = {
   Ball.CYAN : flutter.Colors.cyan,
 };
 
+/// extends the enum Ball by some methods
 extension on Ball {
+  /// gives access to colors map
   flutter.Color get color => colors[this];
 }

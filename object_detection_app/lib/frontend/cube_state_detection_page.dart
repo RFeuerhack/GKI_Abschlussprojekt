@@ -1,10 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:object_detection_app/rubics_cube/ball_side_analyser.dart';
+import 'package:object_detection_app/rubics_cube/rubics_cube_analyser.dart';
 import 'package:object_detection_app/util/detection.dart';
-import 'package:object_detection_app/reusable/object_detection_camera.dart';
+import 'package:object_detection_app/frontend/object_detection_camera.dart';
 
+/// cube state detection page
 class CubeStateDetectionPage extends StatefulWidget {
   final CameraController cameraController;
 
@@ -36,7 +37,7 @@ class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
           (image, detections) {
             Detection detection = detections[0];
             setState(() {
-              rubicsCubeSide = parseImageOfRubicsCubeSide(
+              rubicsCubeSide = parsePartOfCameraImageOfRubicsCubeSide(
                 image,
                 (detection.x * image.height).toInt(),
                 (detection.y * image.width).toInt(),

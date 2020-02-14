@@ -6,6 +6,7 @@ import 'package:object_detection_app/frontend/ball_state_detection_page.dart';
 import 'package:object_detection_app/frontend/cube_state_detection_page.dart';
 import 'package:tflite/tflite.dart';
 
+/// object detection app
 class ObjectDetectionApp extends StatefulWidget {
   @override
   _ObjectDetectionAppState createState() => _ObjectDetectionAppState();
