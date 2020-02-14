@@ -3,7 +3,8 @@ import 'package:delta_e/delta_e.dart';
 import 'package:flutter/material.dart' as flutter;
 import 'package:image/image.dart';
 
-RubicsCubeSide parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int width, int height) {
+/// parses the subimage (x, y, width, height) containing the side of a rubicscube
+RubicsCubeSideState parsePartOfCameraImageOfRubicsCubeSide(CameraImage image, int x, int y, int width, int height) {
   Image rgbImage = convertYUV420toImageColor(image);
 
   LabColor topLeftHue = getLabColorFromRotatedPosition(
@@ -60,7 +61,7 @@ RubicsCubeSide parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int w
     image.height,
   );
 
-  return RubicsCubeSide.fromLabColors(
+  return RubicsCubeSideState.fromLabColors(
     topLeftHue,
     topMidHue,
     topRightHue,
@@ -73,23 +74,26 @@ RubicsCubeSide parseImageOfRubicsCubeSide(CameraImage image, int x, int y, int w
   );
 }
 
+/// returns a labcolor from a given coordinate in an image stored vertically (CameraImage -> Image) with a given height
 LabColor getLabColorFromRotatedPosition(Image image, Point point, int height) {
   Point pointRotated = rotate(point, height);
   int argb = image.getPixel(pointRotated.x, pointRotated.y);
   return fromARGBReversed(argb);
 }
 
-LabColor fromARGBReversed(int argb) {
-  String s = argb.toRadixString(16);
+/// rotates a point by 90 degrees in an image with a given height
+/// disclaimer: needed because camera images are stored rotated
+Point rotate(Point point, int height) => Point(point.y, height - point.x);
+
+/// restructures argb from 01234567 (argb) to 01674523 (abgr)
+LabColor fromARGBReversed(int reversedArgb) {
+  String s = reversedArgb.toRadixString(16);
   String s1 = s[0] + "" + s[1] + "" + s[6] + "" + s[7] + "" + s[4] + "" + s[5] + "" + s[2] + "" + s[3];
   int reversedARGB = int.parse(s1, radix: 16);
-  print(reversedARGB);
-  print(reversedARGB.toRadixString(16));
   return LabColor.fromRGBValue(reversedARGB, RGBStructure.argb);
 }
 
-Point rotate(Point point, int height) => Point(point.y, height - point.x);
-
+/// represents all colors of the rubicscube
 enum RubicsCubeColor {
   WHITE,
   YELLOW,
@@ -99,12 +103,19 @@ enum RubicsCubeColor {
   RED,
 }
 
+/// extends the RubicsCubeColor enum by some methods
 extension on RubicsCubeColor {
+  /// gives access to hues map
   LabColor get labColor => hues[this];
 
+  /// gives access to colors map
   flutter.Color color() => colors[this];
+
+  /// converts RubicsCubeColor to json
+  String toJson() => this.toString().replaceFirst("RubicsCubeColor.", "").toLowerCase();
 }
 
+/// assigns every rubicscube color a flutter color which can be used in the ui
 Map<RubicsCubeColor, flutter.Color> colors = {
   RubicsCubeColor.WHITE: flutter.Colors.white,
   RubicsCubeColor.YELLOW: flutter.Colors.yellow,
@@ -114,6 +125,8 @@ Map<RubicsCubeColor, flutter.Color> colors = {
   RubicsCubeColor.RED: flutter.Colors.red,
 };
 
+/// assigns every rubicscube color a labcolor representing the color
+/// the values where measured in a room at daytime with, while the sun was not shining very bright
 Map<RubicsCubeColor, LabColor> hues = {
   RubicsCubeColor.WHITE: LabColor.fromRGBValue(4291811288, RGBStructure.argb),
   RubicsCubeColor.YELLOW: LabColor.fromRGBValue(4289579308, RGBStructure.argb),
@@ -123,18 +136,64 @@ Map<RubicsCubeColor, LabColor> hues = {
   RubicsCubeColor.RED: LabColor.fromRGBValue(4289010460, RGBStructure.argb),
 };
 
-class RubicsCubeSide {
+class RubicsCubeState {
+  /// state of rubics cube with blue center tile
+  RubicsCubeSideState blue;
+  /// state of rubics cube with orange center tile
+  RubicsCubeSideState orange;
+  /// state of rubics cube with green center tile
+  RubicsCubeSideState green;
+  /// state of rubics cube with red center tile
+  RubicsCubeSideState red;
+  /// state of rubics cube with yellow center tile
+  RubicsCubeSideState yellow;
+  /// state of rubics cube with white center tile
+  RubicsCubeSideState white;
+
+  /// default constructor
+  RubicsCubeState(
+    this.blue,
+    this.orange,
+    this.green,
+    this.red,
+    this.yellow,
+    this.white,
+  );
+
+  /// converts RubicsCubeState to json
+  Map<String, dynamic> toJson() => {
+        '\"' + "blue" + '\"': blue.toJson(),
+        '\"' + "orange" + '\"': orange.toJson(),
+        '\"' + "green" + '\"': green.toJson(),
+        '\"' + "red" + '\"': red.toJson(),
+        '\"' + "yellow" + '\"': yellow.toJson(),
+        '\"' + "white" + '\"': white.toJson(),
+      };
+}
+
+/// represents the state of a side of a rubicscube
+class RubicsCubeSideState {
+  /// color of top left tile of rubicscube side
   RubicsCubeColor topLeft;
+  /// color of top mid tile of rubicscube side
   RubicsCubeColor topMid;
+  /// color of top right tile of rubicscube side
   RubicsCubeColor topRight;
+  /// color of left tile of rubicscube side
   RubicsCubeColor left;
+  /// color of center tile of rubicscube side
   RubicsCubeColor center;
+  /// color of right tile of rubicscube side
   RubicsCubeColor right;
+  /// color of bottom left tile of rubicscube side
   RubicsCubeColor bottomLeft;
+  /// color of bottom mid tile of rubicscube side
   RubicsCubeColor bottomMid;
+  /// color of bottom right tile of rubicscube side
   RubicsCubeColor bottomRight;
 
-  RubicsCubeSide(
+  /// default constructor
+  RubicsCubeSideState(
     this.topLeft,
     this.topMid,
     this.topRight,
@@ -146,7 +205,21 @@ class RubicsCubeSide {
     this.bottomRight,
   );
 
-  RubicsCubeSide.fromLabColors(
+  /// converts RubicsCubeSideState to json
+  Map<String, dynamic> toJson() => {
+        '\"' + "top_left" + '\"': '\"' + topLeft.toJson() + '\"',
+        '\"' + "top_mid" + '\"': '\"' + topMid.toJson() + '\"',
+        '\"' + "top_right" + '\"': '\"' + topRight.toJson() + '\"',
+        '\"' + "left" + '\"': '\"' + left.toJson() + '\"',
+        '\"' + "center" + '\"': '\"' + center.toJson() + '\"',
+        '\"' + "right" + '\"': '\"' + right.toJson() + '\"',
+        '\"' + "bottom_left" + '\"': '\"' + bottomLeft.toJson() + '\"',
+        '\"' + "bottom_mid" + '\"': '\"' + bottomMid.toJson() + '\"',
+        '\"' + "bottom_right" + '\"': '\"' + bottomRight.toJson() + '\"',
+      };
+
+  /// creates a RubicsCubeSideState from every labcolor found on the side of the rubicscube
+  RubicsCubeSideState.fromLabColors(
     LabColor topLeftHue,
     LabColor topMidHue,
     LabColor topRightHue,
@@ -157,19 +230,21 @@ class RubicsCubeSide {
     LabColor bottomMidHue,
     LabColor bottomRightHue,
   ) {
-    this.topLeft = rCCfromHue(topLeftHue);
-    this.topMid = rCCfromHue(topMidHue);
-    this.topRight = rCCfromHue(topRightHue);
-    this.left = rCCfromHue(leftHue);
-    this.center = rCCfromHue(centerHue);
-    this.right = rCCfromHue(rightHue);
-    this.bottomLeft = rCCfromHue(bottomLeftHue);
-    this.bottomMid = rCCfromHue(bottomMidHue);
-    this.bottomRight = rCCfromHue(bottomRightHue);
+    this.topLeft = rubicsCubeColorFromHue(topLeftHue);
+    this.topMid = rubicsCubeColorFromHue(topMidHue);
+    this.topRight = rubicsCubeColorFromHue(topRightHue);
+    this.left = rubicsCubeColorFromHue(leftHue);
+    this.center = rubicsCubeColorFromHue(centerHue);
+    this.right = rubicsCubeColorFromHue(rightHue);
+    this.bottomLeft = rubicsCubeColorFromHue(bottomLeftHue);
+    this.bottomMid = rubicsCubeColorFromHue(bottomMidHue);
+    this.bottomRight = rubicsCubeColorFromHue(bottomRightHue);
   }
 }
 
-RubicsCubeColor rCCfromHue(LabColor labColor) {
+
+/// determines a color e.g. "red" from a given labcolor by comparing the value of the labcolor to the constant labcolor representing each rubicscube color
+RubicsCubeColor rubicsCubeColorFromHue(LabColor labColor) {
   return RubicsCubeColor.values.map((rubicsCubeColor) => {"rubicsCubeColor": rubicsCubeColor, "deltaE": deltaE00(rubicsCubeColor.labColor, labColor)}).reduce((v, e) {
     double vHueDelta = v["deltaE"] as double;
     double eHueDelta = e["deltaE"] as double;
@@ -177,6 +252,8 @@ RubicsCubeColor rCCfromHue(LabColor labColor) {
   })["rubicsCubeColor"];
 }
 
+/// code snippet taken from: "https://stackoverflow.com/questions/57603146/how-to-convert-camera-image-to-image-in-flutter"
+/// converts CameraImage to Image (Image class allows reading rgb at a given coordinate)
 Image convertYUV420toImageColor(CameraImage image) {
   try {
     final int width = image.width;

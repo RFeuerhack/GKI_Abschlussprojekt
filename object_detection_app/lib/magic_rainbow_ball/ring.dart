@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as flutter;
 
+/// enum which contains all colors of the rings of a magic ball cube
 enum Ring {
   WHITE,
   BLACK,
@@ -15,16 +16,21 @@ enum Ring {
   CYAN,
 }
 
+/// extends the enum Ring with some methods
 extension RingExtension on Ring {
+  /// gives access to neighbors list
   List<Ring> get neighbors => neighborMap[this];
 
+  /// gives access to distance map
   int distance(Ring ring) => distanceMap[this][ring];
 
+  /// gives access to colors map
   flutter.Color get color => colors[this];
 }
 
+/// assigns every ring color a flutter color which is usable in the ui
 Map<Ring, flutter.Color> colors = {
-  Ring.WHITE : flutter.Colors.white,
+  Ring.WHITE : flutter.Colors.grey,
   Ring.BLACK : flutter.Colors.black,
   Ring.LIGHT_GREEN : flutter.Colors.lightGreen,
   Ring.DARK_GREEN : flutter.Colors.green,
@@ -38,8 +44,7 @@ Map<Ring, flutter.Color> colors = {
   Ring.CYAN : flutter.Colors.cyan,
 };
 
-
-
+/// contains information regarding every rings neighbors
 Map<Ring, List<Ring>> neighborMap = {
   Ring.WHITE: [Ring.PURPLE, Ring.LIGHT_BLUE, Ring.BLACK, Ring.CYAN, Ring.DARK_BLUE],
   Ring.BLACK: [Ring.WHITE, Ring.LIGHT_BLUE, Ring.RED, Ring.YELLOW, Ring.CYAN],
@@ -55,6 +60,7 @@ Map<Ring, List<Ring>> neighborMap = {
   Ring.CYAN: [Ring.LIGHT_GREEN, Ring.DARK_BLUE, Ring.WHITE, Ring.BLACK, Ring.YELLOW],
 };
 
+/// contains the distances between each and every ring
 Map<Ring, Map<Ring, int>> distanceMap = {
   Ring.WHITE: {
     Ring.WHITE: 0,

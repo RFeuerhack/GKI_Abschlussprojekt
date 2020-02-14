@@ -1,3 +1,4 @@
+/// convinience class for parsing a json object returned by the tflite plugin
 class Detection {
   double x;
   double y;

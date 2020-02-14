@@ -6,6 +6,7 @@ import 'package:object_detection_app/frontend/ball_state_detection_page.dart';
 import 'package:object_detection_app/frontend/cube_state_detection_page.dart';
 import 'package:tflite/tflite.dart';
 
+/// object detection app
 class ObjectDetectionApp extends StatefulWidget {
   @override
   _ObjectDetectionAppState createState() => _ObjectDetectionAppState();
@@ -20,6 +21,19 @@ enum ObjectDetectionAppModes {
 class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
   ObjectDetectionAppModes mode = ObjectDetectionAppModes.BALL_AND_CUBE_DETECTION;
 
+  String title() {
+    switch (mode) {
+      case ObjectDetectionAppModes.BALL_AND_CUBE_DETECTION:
+        return "Ball & Cube Detection";
+      case ObjectDetectionAppModes.BALL_STATE_DETECTION:
+        return "Ball State Detection";
+      case ObjectDetectionAppModes.CUBE_STATE_DETECTION:
+        return "Cube State Detection";
+      default:
+        return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -28,14 +42,35 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
     return MaterialApp(
       title: "GKI",
       home: Scaffold(
-        appBar: AppBar(title: Text("GKI")),
+        appBar: AppBar(
+          title: Text(title()),
+          backgroundColor: Colors.black,
+        ),
+        backgroundColor: Colors.black,
         drawer: Builder(
           builder: (context) {
             return Drawer(
               child: ListView(
                 children: <Widget>[
-                  DrawerHeader(),
+                  DrawerHeader(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("powered", style: TextStyle(color: Colors.orange)),
+                        Text("by TensorFlow", style: TextStyle(color: Colors.orange)),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: AssetImage("assets/tensorflow_logo.png"),
+                      ),
+                    ),
+                  ),
                   ListTile(
+                    leading: Icon(Icons.chevron_right),
                     trailing: Text("Cube & Ball Detection"),
                     onTap: () => setState(() {
                       mode = ObjectDetectionAppModes.BALL_AND_CUBE_DETECTION;
@@ -43,6 +78,7 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                     }),
                   ),
                   ListTile(
+                    leading: Icon(Icons.chevron_right),
                     trailing: Text("Cube State Detection"),
                     onTap: () => setState(() {
                       mode = ObjectDetectionAppModes.CUBE_STATE_DETECTION;
@@ -50,6 +86,7 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                     }),
                   ),
                   ListTile(
+                    leading: Icon(Icons.chevron_right),
                     trailing: Text("Ball State Detection"),
                     onTap: () => setState(() {
                       mode = ObjectDetectionAppModes.BALL_STATE_DETECTION;
@@ -82,7 +119,7 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return BallAndCubeDetectionPage(cameraController);
                             } else {
-                              return Container();
+                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
                             }
                           },
                         );
@@ -96,7 +133,7 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return BallStateDetectionPage(cameraController);
                             } else {
-                              return Container();
+                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
                             }
                           },
                         );
@@ -110,19 +147,19 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return CubeStateDetectionPage(cameraController);
                             } else {
-                              return Container();
+                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
                             }
                           },
                         );
                     }
                     throw Exception();
                   } else {
-                    return Container();
+                    return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
                   }
                 },
               );
             } else {
-              return Container();
+              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
             }
           },
         ),
