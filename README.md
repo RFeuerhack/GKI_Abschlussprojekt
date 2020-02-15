@@ -2,7 +2,7 @@
 
 > Rubik's Cube und Magic Rainbow Ball Object Detection
 > <br>
-> by **Robert Feuerhack, Felix Brübach and Philipp Alexander Händler**
+>von **Robert Feuerhack, Felix Brübach und Philipp Alexander Händler**
 ---
 
 ## Inhalt dieses Repositorys
