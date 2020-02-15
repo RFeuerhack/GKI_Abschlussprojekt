@@ -264,48 +264,46 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
               children: <Widget>[
                 FlatButton(
                   child: Text("Prüfen", style: TextStyle(color: Colors.white)),
-                  onPressed: mrb.isConsistent()
-                      ? () {
-                          MagicRainbowBall mrb = MagicRainbowBall(
-                            ballState[Ring.WHITE],
-                            ballState[Ring.BLACK],
-                            ballState[Ring.LIGHT_GREEN],
-                            ballState[Ring.DARK_GREEN],
-                            ballState[Ring.LIGHT_BLUE],
-                            ballState[Ring.DARK_BLUE],
-                            ballState[Ring.YELLOW],
-                            ballState[Ring.ORANGE],
-                            ballState[Ring.RED],
-                            ballState[Ring.PINK],
-                            ballState[Ring.PURPLE],
-                            ballState[Ring.CYAN],
+                  onPressed: () {
+                    MagicRainbowBall mrb = MagicRainbowBall(
+                      ballState[Ring.WHITE],
+                      ballState[Ring.BLACK],
+                      ballState[Ring.LIGHT_GREEN],
+                      ballState[Ring.DARK_GREEN],
+                      ballState[Ring.LIGHT_BLUE],
+                      ballState[Ring.DARK_BLUE],
+                      ballState[Ring.YELLOW],
+                      ballState[Ring.ORANGE],
+                      ballState[Ring.RED],
+                      ballState[Ring.PINK],
+                      ballState[Ring.PURPLE],
+                      ballState[Ring.CYAN],
+                    );
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                            ],
+                            title: Text("Ist das erkannte Modell konsistent?"),
+                            content: mrb.isConsistent()
+                                ? Icon(
+                                    Icons.check,
+                                    color: Colors.green,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.clear,
+                                    color: Colors.red,
+                                    size: 50,
+                                  ),
                           );
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok"),
-                                      onPressed: () => Navigator.of(context).pop(),
-                                    ),
-                                  ],
-                                  title: Text("Ist das erkannte Modell konsistent?"),
-                                  content: mrb.isConsistent()
-                                      ? Icon(
-                                          Icons.check,
-                                          color: Colors.green,
-                                          size: 50,
-                                        )
-                                      : Icon(
-                                          Icons.clear,
-                                          color: Colors.red,
-                                          size: 50,
-                                        ),
-                                );
-                              });
-                        }
-                      : null,
+                        });
+                  },
                 ),
                 FlatButton(
                   child: Text("Lösen", style: TextStyle(color: mrb.isConsistent() ? Colors.white : Colors.grey)),
@@ -349,13 +347,13 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
                                                 children: <Widget>[
                                                   SizedBox(width: 10),
                                                   Text(ballToString(move.ball), style: TextStyle(color: move.ball.color)),
-                                                  SizedBox(width: 10),
+                                                  SizedBox(width: 3),
                                                   Text(":"),
-                                                  SizedBox(width: 10),
+                                                  SizedBox(width: 3),
                                                   Text(ringToString(move.from), style: TextStyle(color: move.from.color)),
-                                                  SizedBox(width: 10),
+                                                  SizedBox(width: 3),
                                                   Icon(Icons.arrow_forward),
-                                                  SizedBox(width: 10),
+                                                  SizedBox(width: 3),
                                                   Text(ringToString(move.to), style: TextStyle(color: move.to.color)),
                                                 ],
                                               );
