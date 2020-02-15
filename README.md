@@ -1,7 +1,7 @@
-# GKI_Abschlussprojekt
+# Grunlagen der künstlichen Intelligenz: Abschlussprojekt
 
-> Rubik's Cube und Magic Rainbow Ball Object Detection. - by **Robert Feuerhack, Felix Brübach and Philipp Alexander Händler**
-
+> Rubik's Cube und Magic Rainbow Ball Object Detection.
+> by **Robert Feuerhack, Felix Brübach and Philipp Alexander Händler**
 ---
 
 ## Inhalt dieses Repositorys
