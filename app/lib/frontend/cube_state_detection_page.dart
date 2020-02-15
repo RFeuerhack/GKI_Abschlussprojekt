@@ -24,19 +24,25 @@ class CubeStateDetectionPage extends StatefulWidget {
 class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
   /// The camera that is used for the detection task.
   CameraController cameraController;
+
   /// Currently detected state of the [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSide;
 
   /// Saved state of the detected blue [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideBlue;
+
   /// Saved state of the detected orange [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideOrange;
+
   /// Saved state of the detected green [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideGreen;
+
   /// Saved state of the detected red [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideRed;
+
   /// Saved state of the detected yellow [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideYellow;
+
   /// Saved state of the detected white [RubicsCubeSide].
   RubicsCubeSide rubicsCubeSideWhite;
 
@@ -179,6 +185,7 @@ class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
 class CubeStatePainter extends CustomPainter {
   /// The [RubicsCubeSide] to visualize.
   RubicsCubeSide rubicsCubeSide;
+
   /// [Color] of the center tile of a [RubicsCubeSide].
   Color centerColor;
 

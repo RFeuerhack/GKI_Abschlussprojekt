@@ -410,8 +410,10 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
 class RingStatePainter extends CustomPainter {
   /// [Color] of the [Ring].
   Color ringColor;
+
   /// [Color] of the [Ball] in the [Ring].
   Color ballColor;
+
   /// Indicates whether or not the state is locked.
   bool locked;
 

@@ -4,14 +4,19 @@
 class Detection {
   /// X of coordinate of upper left corner of rectangle, which describes the location of the detection.
   double x;
+
   /// Y of coordinate of upper left corner of rectangle, which describes the location of the detection.
   double y;
+
   /// Width of Rectangle, which describes the location of the detection.
   double w;
+
   /// Height of Rectangle, which describes the location of the detection.
   double h;
+
   /// Name of detected class.
   String detectedClass;
+
   /// Confidence that the detected class is a actually what the class stands for.
   double confidenceInClass;
 

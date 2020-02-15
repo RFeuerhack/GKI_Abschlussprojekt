@@ -10,10 +10,13 @@ import 'package:tflite/tflite.dart';
 class ObjectDetectionCamera extends StatefulWidget {
   /// The camera that is used for the detection task.
   final CameraController cameraController;
+
   /// [Function] that gets called, when something is detected.
   final Function onDetection;
+
   /// Threshhold for confidence, that needs to be surpassed in order for a detection to be accepted.
   final double threshhold;
+
   /// [Function] that gets called, when nothing is detected.
   final Function onNoDetection;
 
@@ -28,10 +31,13 @@ class ObjectDetectionCamera extends StatefulWidget {
 class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
   /// The camera that is used for the detection task.
   CameraController cameraController;
+
   /// [Function] that gets called, when something is detected.
   Function onDetection;
+
   /// Threshhold for confidence, that needs to be surpassed in order for a detection to be accepted.
   double threshhold;
+
   /// [Function] that gets called, when nothing is detected.
   Function onNoDetection;
 
@@ -40,6 +46,7 @@ class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
 
   /// [bool] that indicates whether or not the TFLite plugin is busy with analyzing a frame.
   bool isDetecting = false;
+
   /// Contains all current [Detection]s.
   List<Detection> detections = [];
 
@@ -94,6 +101,7 @@ class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
 class ObjectDetectionPainter extends CustomPainter {
   /// All detections that should get marked.
   List<Detection> detections;
+
   /// Treshhold which the confindenceScore of a [Detection] has to surpass in order to get marked.
   double threshhold;
 
