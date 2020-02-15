@@ -1,5 +1,3 @@
-/// This dart file contains the Detection class.
-
 /// Convinience class for parsing a detection in json format returned by the TFLite plugin.
 class Detection {
   /// X of coordinate of upper left corner of rectangle, which describes the location of the detection.
