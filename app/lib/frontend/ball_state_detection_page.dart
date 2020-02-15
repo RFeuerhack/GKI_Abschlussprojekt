@@ -1,90 +1,35 @@
+/// This the dart file is part of the Frontend and contains the BallStateDetectionPage.
+library Frontend_BallStateDetectionPage;
+
+import 'package:app/ball/ring.dart';
+import 'package:app/util/detection.dart';
 import 'package:camera/camera.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:app/magic_rainbow_ball/ball.dart';
-import 'package:app/magic_rainbow_ball/magic_rainbow_ball.dart';
-import 'package:app/magic_rainbow_ball/move.dart';
-import 'package:app/magic_rainbow_ball/ring.dart';
-import 'package:app/frontend/object_detection_camera.dart';
-import 'package:app/util/detection.dart';
 import 'package:tuple/tuple.dart';
 
+import '../ball/ball.dart';
+import '../ball/magic_rainbow_ball.dart';
+import '../ball/move.dart';
+import 'object_detection_camera.dart';
+
 class BallStateDetectionPage extends StatefulWidget {
+  /// The camera that is used for the detection task.
   final CameraController cameraController;
 
+  /// Default Constructor.
   BallStateDetectionPage(this.cameraController);
 
   @override
   _BallStateDetectionPageState createState() => _BallStateDetectionPageState(cameraController);
 }
 
-/// Assigns every possible Ball Detection (assuming the model is right) the corresponding Ball.
-Ball ballFromDetection(Detection detection) {
-  switch (detection.detectedClass) {
-    case "empty":
-      return Ball.EMPTY;
-    case "blackball":
-      return Ball.BLACK;
-    case "lightblueball":
-      return Ball.LIGHT_BLUE;
-    case "darkblueball":
-      return Ball.DARK_BLUE;
-    case "lightgreenball":
-      return Ball.LIGHT_GREEN;
-    case "darkgreenball":
-      return Ball.DARK_GREEN;
-    case "yellowball":
-      return Ball.YELLOW;
-    case "orangeball":
-      return Ball.ORANGE;
-    case "redball":
-      return Ball.RED;
-    case "pinkball":
-      return Ball.PINK;
-    case "purpleball":
-      return Ball.PURPLE;
-    case "cyanball":
-      return Ball.CYAN;
-    default:
-      return null;
-  }
-}
-
-/// /// Assigns every possible Rinf Detection (assuming the model is right) the corresponding Ring.
-Ring ringFromDetection(Detection detection) {
-  switch (detection.detectedClass) {
-    case "whitering":
-      return Ring.WHITE;
-    case "blackring":
-      return Ring.BLACK;
-    case "lightbluering":
-      return Ring.LIGHT_BLUE;
-    case "darkbluering":
-      return Ring.DARK_BLUE;
-    case "lightgreenring":
-      return Ring.LIGHT_GREEN;
-    case "darkgreenring":
-      return Ring.DARK_GREEN;
-    case "yellowring":
-      return Ring.YELLOW;
-    case "orangering":
-      return Ring.ORANGE;
-    case "redring":
-      return Ring.RED;
-    case "pinkring":
-      return Ring.PINK;
-    case "purplering":
-      return Ring.PURPLE;
-    case "cyanring":
-      return Ring.CYAN;
-    default:
-      return null;
-  }
-}
-
+/// State of the [BallStateDetectionPage].
 class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
+  /// The camera that is used for the detection task.
   CameraController cameraController;
 
+  /// Default constructor.
   _BallStateDetectionPageState(this.cameraController) {
     Ring.values.forEach((ring) {
       ballState[ring] = null;
@@ -92,7 +37,10 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
     });
   }
 
+  /// Holds the scanned state of the Magic Rainbow Ball;
   Map<Ring, Ball> ballState = Map();
+
+  /// Saves which rings are currently locked and should not be updated by new detections.
   Map<Ring, bool> lockedRings = Map();
 
   String ballToString(Ball ball) {
@@ -115,8 +63,86 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
     return name;
   }
 
+  /// Assigns every possible Ball Detection (assuming the model is right) the corresponding Ball.
+  Ball ballFromDetection(Detection detection) {
+    switch (detection.detectedClass) {
+      case "empty":
+        return Ball.EMPTY;
+      case "blackball":
+        return Ball.BLACK;
+      case "lightblueball":
+        return Ball.LIGHT_BLUE;
+      case "darkblueball":
+        return Ball.DARK_BLUE;
+      case "lightgreenball":
+        return Ball.LIGHT_GREEN;
+      case "darkgreenball":
+        return Ball.DARK_GREEN;
+      case "yellowball":
+        return Ball.YELLOW;
+      case "orangeball":
+        return Ball.ORANGE;
+      case "redball":
+        return Ball.RED;
+      case "pinkball":
+        return Ball.PINK;
+      case "purpleball":
+        return Ball.PURPLE;
+      case "cyanball":
+        return Ball.CYAN;
+      default:
+        return null;
+    }
+  }
+
+  /// Assigns every possible Ring Detection (assuming the model is right) the corresponding Ring.
+  Ring ringFromDetection(Detection detection) {
+    switch (detection.detectedClass) {
+      case "whitering":
+        return Ring.WHITE;
+      case "blackring":
+        return Ring.BLACK;
+      case "lightbluering":
+        return Ring.LIGHT_BLUE;
+      case "darkbluering":
+        return Ring.DARK_BLUE;
+      case "lightgreenring":
+        return Ring.LIGHT_GREEN;
+      case "darkgreenring":
+        return Ring.DARK_GREEN;
+      case "yellowring":
+        return Ring.YELLOW;
+      case "orangering":
+        return Ring.ORANGE;
+      case "redring":
+        return Ring.RED;
+      case "pinkring":
+        return Ring.PINK;
+      case "purplering":
+        return Ring.PURPLE;
+      case "cyanring":
+        return Ring.CYAN;
+      default:
+        return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    MagicRainbowBall mrb = MagicRainbowBall(
+      ballState[Ring.WHITE],
+      ballState[Ring.BLACK],
+      ballState[Ring.LIGHT_GREEN],
+      ballState[Ring.DARK_GREEN],
+      ballState[Ring.LIGHT_BLUE],
+      ballState[Ring.DARK_BLUE],
+      ballState[Ring.YELLOW],
+      ballState[Ring.ORANGE],
+      ballState[Ring.RED],
+      ballState[Ring.PINK],
+      ballState[Ring.PURPLE],
+      ballState[Ring.CYAN],
+    );
     return Stack(
       children: <Widget>[
         ObjectDetectionCamera(
@@ -154,222 +180,215 @@ class _BallStateDetectionPageState extends State<BallStateDetectionPage> {
           },
           0.8,
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: ballState.entries
-                  .map(
-                    (ringBall) => Column(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              lockedRings[ringBall.key] = !lockedRings[ringBall.key];
-                            });
-                          },
-                          onLongPress: () {
-                            showDialog(
-                                context: context,
-                                child: AlertDialog(
-                                  title: Text("Ballfarbe auswählen\nAktuell: " + ballToString(ballState[ringBall.key])),
-                                  content: Column(
-                                    children: List.generate(Ball.values.length, (index) {
-                                      Ball ball = Ball.values[index];
-
-                                      return Column(
-                                        children: <Widget>[
-                                          GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  ballState[ringBall.key] = ball;
-                                                  lockedRings[ringBall.key] = true;
-                                                });
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(ballToString(ball), style: TextStyle(color: ball.color == Colors.white ? Colors.black : ball.color))),
-                                          SizedBox(height: 10),
-                                        ],
-                                      );
-                                    }),
-                                  ),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Abbrechen"),
-                                      onPressed: () => Navigator.of(context).pop(),
-                                    )
-                                  ],
-                                ));
-                          },
-                          child: CustomPaint(
-                            painter: RingStatePainter(ringBall.key.color, ringBall.value.color, lockedRings[ringBall.key]),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              child: lockedRings[ringBall.key]
-                                  ? IconButton(
-                                      icon: Icon(
-                                        Icons.lock,
-                                        color: Colors.black,
-                                        size: 32,
-                                      ),
-                                    )
-                                  : Container(),
-                            ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Wrap(
+                spacing: 10.0,
+                children: ballState.entries
+                    .map(
+                      (ringBall) => Column(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            lockedRings[ringBall.key] = !lockedRings[ringBall.key];
+                          });
+                        },
+                        onLongPress: () {
+                          showDialog(
+                              context: context,
+                              child: AlertDialog(
+                                title: Text("Ballfarbe auswählen\nAktuell: " + ballToString(ballState[ringBall.key])),
+                                content: Column(
+                                  children: List.generate(Ball.values.length, (index) {
+                                    Ball ball = Ball.values[index];
+                                    return Column(
+                                      children: <Widget>[
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                ballState[ringBall.key] = ball;
+                                                lockedRings[ringBall.key] = true;
+                                              });
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(ballToString(ball), style: TextStyle(color: ball.color == Colors.white ? Colors.black : ball.color))),
+                                        SizedBox(height: 10),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Abbrechen"),
+                                    onPressed: () => Navigator.of(context).pop(),
+                                  )
+                                ],
+                              ));
+                        },
+                        child: CustomPaint(
+                          painter: RingStatePainter(ringBall.key.color, ringBall.value.color, lockedRings[ringBall.key]),
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            child: lockedRings[ringBall.key]
+                                ? IconButton(
+                              icon: Icon(
+                                Icons.lock,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                            )
+                                : Container(),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlatButton(
-                child: Text("Prüfen", style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  if (ballState[Ring.WHITE] == null || ballState[Ring.BLACK] == null || ballState[Ring.LIGHT_GREEN] == null || ballState[Ring.DARK_GREEN] == null || ballState[Ring.LIGHT_BLUE] == null || ballState[Ring.DARK_BLUE] == null || ballState[Ring.YELLOW] == null || ballState[Ring.ORANGE] == null || ballState[Ring.RED] == null || ballState[Ring.PINK] == null || ballState[Ring.PURPLE] == null || ballState[Ring.CYAN] == null) {
-                    return;
-                  }
-                  MagicRainbowBall mrb = MagicRainbowBall(
-                    ballState[Ring.WHITE],
-                    ballState[Ring.BLACK],
-                    ballState[Ring.LIGHT_GREEN],
-                    ballState[Ring.DARK_GREEN],
-                    ballState[Ring.LIGHT_BLUE],
-                    ballState[Ring.DARK_BLUE],
-                    ballState[Ring.YELLOW],
-                    ballState[Ring.ORANGE],
-                    ballState[Ring.RED],
-                    ballState[Ring.PINK],
-                    ballState[Ring.PURPLE],
-                    ballState[Ring.CYAN],
-                  );
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text("Ok"),
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                          title: Text("Ist das erkannte Modell konsistent?"),
-                          content: mrb.isConsistent()
-                              ? Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                  size: 50,
-                                )
-                              : Icon(
-                                  Icons.clear,
-                                  color: Colors.red,
-                                  size: 50,
-                                ),
-                        );
-                      });
-                },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
+                )
+                    .toList(),
               ),
-              FlatButton(
-                child: Text("Lösen", style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  MagicRainbowBall mrb = MagicRainbowBall(
-                    ballState[Ring.WHITE],
-                    ballState[Ring.BLACK],
-                    ballState[Ring.LIGHT_GREEN],
-                    ballState[Ring.DARK_GREEN],
-                    ballState[Ring.LIGHT_BLUE],
-                    ballState[Ring.DARK_BLUE],
-                    ballState[Ring.YELLOW],
-                    ballState[Ring.ORANGE],
-                    ballState[Ring.RED],
-                    ballState[Ring.PINK],
-                    ballState[Ring.PURPLE],
-                    ballState[Ring.CYAN],
-                  );
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text("Ok"),
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                          title: Text("Lösungsweg"),
-                          content: FutureBuilder(
-                            future: mrb.generateSolution(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                List<Move> solution = snapshot.data;
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    children: List.generate(solution.length, (index) {
-                                      Move move = solution[index];
-                                      return Row(
-                                        children: <Widget>[
-                                          SizedBox(width: 10),
-                                          Text(ballToString(move.ball), style: TextStyle(color: move.ball.color)),
-                                          SizedBox(width: 10),
-                                          Text(":"),
-                                          SizedBox(width: 10),
-                                          Text(ringToString(move.from), style: TextStyle(color: move.from.color)),
-                                          SizedBox(width: 10),
-                                          Icon(Icons.arrow_forward),
-                                          SizedBox(width: 10),
-                                          Text(ringToString(move.to), style: TextStyle(color: move.to.color)),
-                                        ],
-                                      );
-                                    }),
-                                  ),
-                                );
-                              } else {
-                                return CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                        );
-                      });
-                },
-              ),
-              FlatButton(
-                child: Text("Exportieren", style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  MagicRainbowBall mrb = MagicRainbowBall(
-                    ballState[Ring.WHITE],
-                    ballState[Ring.BLACK],
-                    ballState[Ring.LIGHT_GREEN],
-                    ballState[Ring.DARK_GREEN],
-                    ballState[Ring.LIGHT_BLUE],
-                    ballState[Ring.DARK_BLUE],
-                    ballState[Ring.YELLOW],
-                    ballState[Ring.ORANGE],
-                    ballState[Ring.RED],
-                    ballState[Ring.PINK],
-                    ballState[Ring.PURPLE],
-                    ballState[Ring.CYAN],
-                  );
-                  ClipboardManager.copyToClipBoard(mrb.toJson().toString()).then((result) {
-                    final snackBar = SnackBar(
-                      content: Text("JSON in Zwischenablage kopiert"),
+            ), Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                  child: Text("Prüfen", style: TextStyle(color: Colors.white)),
+                  onPressed: mrb.isConsistent() ? () {
+                    MagicRainbowBall mrb = MagicRainbowBall(
+                      ballState[Ring.WHITE],
+                      ballState[Ring.BLACK],
+                      ballState[Ring.LIGHT_GREEN],
+                      ballState[Ring.DARK_GREEN],
+                      ballState[Ring.LIGHT_BLUE],
+                      ballState[Ring.DARK_BLUE],
+                      ballState[Ring.YELLOW],
+                      ballState[Ring.ORANGE],
+                      ballState[Ring.RED],
+                      ballState[Ring.PINK],
+                      ballState[Ring.PURPLE],
+                      ballState[Ring.CYAN],
                     );
-                    Scaffold.of(context).showSnackBar(snackBar);
-                  });
-                },
-              ),
-            ],
-          ),
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                            ],
+                            title: Text("Ist das erkannte Modell konsistent?"),
+                            content: mrb.isConsistent()
+                                ? Icon(
+                              Icons.check,
+                              color: Colors.green,
+                              size: 50,
+                            )
+                                : Icon(
+                              Icons.clear,
+                              color: Colors.red,
+                              size: 50,
+                            ),
+                          );
+                        });
+                  } : null,
+                ),
+                FlatButton(
+                  child: Text("Lösen", style: TextStyle(color: mrb.isConsistent() ? Colors.white : Colors.grey)),
+                  onPressed: mrb.isConsistent() ? () {
+                    MagicRainbowBall mrb = MagicRainbowBall(
+                      ballState[Ring.WHITE],
+                      ballState[Ring.BLACK],
+                      ballState[Ring.LIGHT_GREEN],
+                      ballState[Ring.DARK_GREEN],
+                      ballState[Ring.LIGHT_BLUE],
+                      ballState[Ring.DARK_BLUE],
+                      ballState[Ring.YELLOW],
+                      ballState[Ring.ORANGE],
+                      ballState[Ring.RED],
+                      ballState[Ring.PINK],
+                      ballState[Ring.PURPLE],
+                      ballState[Ring.CYAN],
+                    );
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                            ],
+                            title: Text("Lösungsweg"),
+                            content: FutureBuilder(
+                              future: mrb.generateSolution(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  List<Move> solution = snapshot.data;
+                                  return SingleChildScrollView(
+                                    child: Column(
+                                      children: List.generate(solution.length, (index) {
+                                        Move move = solution[index];
+                                        return Row(
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(ballToString(move.ball), style: TextStyle(color: move.ball.color)),
+                                            SizedBox(width: 10),
+                                            Text(":"),
+                                            SizedBox(width: 10),
+                                            Text(ringToString(move.from), style: TextStyle(color: move.from.color)),
+                                            SizedBox(width: 10),
+                                            Icon(Icons.arrow_forward),
+                                            SizedBox(width: 10),
+                                            Text(ringToString(move.to), style: TextStyle(color: move.to.color)),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  );
+                                } else {
+                                  return CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                          );
+                        });
+                  } : null,
+                ),
+                FlatButton(
+                  child: Text("Exportieren", style: TextStyle(color: mrb.isConsistent() ? Colors.white : Colors.grey)),
+                  onPressed: mrb.isConsistent() ? () {
+                    MagicRainbowBall mrb = MagicRainbowBall(
+                      ballState[Ring.WHITE],
+                      ballState[Ring.BLACK],
+                      ballState[Ring.LIGHT_GREEN],
+                      ballState[Ring.DARK_GREEN],
+                      ballState[Ring.LIGHT_BLUE],
+                      ballState[Ring.DARK_BLUE],
+                      ballState[Ring.YELLOW],
+                      ballState[Ring.ORANGE],
+                      ballState[Ring.RED],
+                      ballState[Ring.PINK],
+                      ballState[Ring.PURPLE],
+                      ballState[Ring.CYAN],
+                    );
+                    ClipboardManager.copyToClipBoard(mrb.toJson().toString()).then((result) {
+                      final snackBar = SnackBar(content: Text("JSON in Zwischenablage kopiert"));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    });
+                  } : null,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -394,23 +413,4 @@ class RingStatePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-Map<Ball, Color> colors = {
-  Ball.EMPTY: Colors.grey,
-  Ball.BLACK: Colors.black,
-  Ball.LIGHT_GREEN: Colors.lightGreen,
-  Ball.DARK_GREEN: Colors.green,
-  Ball.LIGHT_BLUE: Colors.lightBlue,
-  Ball.DARK_BLUE: Colors.blue,
-  Ball.YELLOW: Colors.yellow,
-  Ball.ORANGE: Colors.orange,
-  Ball.RED: Colors.red,
-  Ball.PINK: Colors.pink,
-  Ball.PURPLE: Colors.purple,
-  Ball.CYAN: Colors.cyan,
-};
-
-extension on Ball {
-  Color get color => colors[this];
 }

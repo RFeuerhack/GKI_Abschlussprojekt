@@ -1,9 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:app/rubics_cube/rubics_cube_analyser.dart';
+import 'package:app/cube/rubics_cube_analyser.dart';
 import 'package:app/util/detection.dart';
-import 'package:app/frontend/object_detection_camera.dart';
+
+import 'object_detection_camera.dart';
 
 class CubeStateDetectionPage extends StatefulWidget {
   final CameraController cameraController;
@@ -185,16 +186,3 @@ class CubeStatePainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
-
-extension on RubicsCubeColor {
-  Color get color => colors[this];
-}
-
-Map<RubicsCubeColor, Color> colors = {
-  RubicsCubeColor.WHITE: Colors.white,
-  RubicsCubeColor.YELLOW: Colors.yellow,
-  RubicsCubeColor.BLUE: Colors.blue,
-  RubicsCubeColor.GREEN: Colors.green,
-  RubicsCubeColor.ORANGE: Colors.orange,
-  RubicsCubeColor.RED: Colors.red,
-};

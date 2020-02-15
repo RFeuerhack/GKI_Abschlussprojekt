@@ -2,9 +2,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app/frontend/ball_and_cube_detection_page.dart';
-import 'package:app/frontend/ball_state_detection_page.dart';
-import 'package:app/frontend/cube_state_detection_page.dart';
 import 'package:tflite/tflite.dart';
+
+import 'ball_state_detection_page.dart';
+import 'cube_state_detection_page.dart';
 
 class ObjectDetectionApp extends StatefulWidget {
   @override

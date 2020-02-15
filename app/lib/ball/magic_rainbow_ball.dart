@@ -1,16 +1,17 @@
 import 'dart:math';
 
+import 'package:app/ball/ring.dart';
 import 'package:collection/collection.dart';
 import 'package:tuple/tuple.dart';
 
 import 'ball.dart';
 import 'move.dart';
-import 'ring.dart';
 
 /// Represents a Magic Rainbow Ball.
 class MagicRainbowBall {
   /// Contains information regarding: Which ball is in which ring. (reversed map of _ringWith)
   Map<Ring, Ball> _ballWith = Map();
+
   /// Contains informatin regarding: Which ring is in which ball. (reversed map of _ballWith)
   Map<Ball, Ring> _ringWith = Map();
 

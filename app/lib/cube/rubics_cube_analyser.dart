@@ -103,12 +103,12 @@ enum RubicsCubeColor {
   RED,
 }
 
-extension on RubicsCubeColor {
+extension RubicsCubeColorExtenstion on RubicsCubeColor {
   /// Gives access to hues map.
-  LabColor get labColor => hues[this];
+  LabColor get labColor => labColorsOfCubeColors[this];
 
   /// Gives access to colors map.
-  flutter.Color color() => colors[this];
+  flutter.Color get color => colors[this];
 
   /// Converts RubicsCubeColor to json.
   String toJson() => this.toString().replaceFirst("RubicsCubeColor.", "").toLowerCase();
@@ -126,7 +126,7 @@ Map<RubicsCubeColor, flutter.Color> colors = {
 
 /// assigns every rubicscube color a labcolor representing the color
 /// the values where measured in a room at daytime with, while the sun was not shining very bright
-Map<RubicsCubeColor, LabColor> hues = {
+Map<RubicsCubeColor, LabColor> labColorsOfCubeColors = {
   RubicsCubeColor.WHITE: LabColor.fromRGBValue(4291811288, RGBStructure.argb),
   RubicsCubeColor.YELLOW: LabColor.fromRGBValue(4289579308, RGBStructure.argb),
   RubicsCubeColor.BLUE: LabColor.fromRGBValue(4278551999, RGBStructure.argb),

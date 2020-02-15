@@ -21,24 +21,8 @@ extension RingExtension on Ring {
 
   int distance(Ring ring) => distanceMap[this][ring];
 
-  flutter.Color get color => colors[this];
+  flutter.Color get color => _ringColors[this];
 }
-
-/// Assigns every ring a color, which is usable in Flutter.
-Map<Ring, flutter.Color> colors = {
-  Ring.WHITE : flutter.Colors.grey,
-  Ring.BLACK : flutter.Colors.black,
-  Ring.LIGHT_GREEN : flutter.Colors.lightGreen,
-  Ring.DARK_GREEN : flutter.Colors.green,
-  Ring.LIGHT_BLUE : flutter.Colors.lightBlue,
-  Ring.DARK_BLUE : flutter.Colors.blue,
-  Ring.YELLOW : flutter.Colors.yellow,
-  Ring.ORANGE : flutter.Colors.orange,
-  Ring.RED : flutter.Colors.red,
-  Ring.PINK : flutter.Colors.pink,
-  Ring.PURPLE : flutter.Colors.purple,
-  Ring.CYAN : flutter.Colors.cyan,
-};
 
 /// Contains information regarding every Rings neighbors.
 Map<Ring, List<Ring>> neighborMap = {
@@ -226,4 +210,20 @@ Map<Ring, Map<Ring, int>> distanceMap = {
     Ring.PURPLE: 2,
     Ring.CYAN: 0,
   },
+};
+
+/// Assigns every ring a color, which is usable in Flutter.
+Map<Ring, flutter.Color> _ringColors = {
+  Ring.WHITE: flutter.Colors.grey,
+  Ring.BLACK: flutter.Colors.black,
+  Ring.LIGHT_GREEN: flutter.Colors.lightGreen,
+  Ring.DARK_GREEN: flutter.Colors.green,
+  Ring.LIGHT_BLUE: flutter.Colors.lightBlue,
+  Ring.DARK_BLUE: flutter.Colors.blue,
+  Ring.YELLOW: flutter.Colors.yellow,
+  Ring.ORANGE: flutter.Colors.orange,
+  Ring.RED: flutter.Colors.red,
+  Ring.PINK: flutter.Colors.pink,
+  Ring.PURPLE: flutter.Colors.purple,
+  Ring.CYAN: flutter.Colors.cyan,
 };
