@@ -7,7 +7,7 @@
 
 > [Hier](https://github.com/RFeuerhack/GKI_Abschlussprojekt/wiki) geht es zum Wiki.
 > <br>
-> [Hier](https://rfeuerhack.github.io/GKI_Abschlussprojekt/) geht es zu Softwaredokumentation.
+> [Hier](https://rfeuerhack.github.io/GKI_Abschlussprojekt/index.html) geht es zu Softwaredokumentation.
 
 ## Inhalt dieses Repositorys
 
