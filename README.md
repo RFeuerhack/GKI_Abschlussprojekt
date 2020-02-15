@@ -21,7 +21,7 @@
 
 ## app
 
-Enthält die App, mit welcher z.B. der Zustand eines Magic Rainbow Balls erkannt werden kann.
+Enthält die App, mit welcher unter anderem der Zustand eines Magic Rainbow Balls erkannt werden kann.
 
 ## blender
 
