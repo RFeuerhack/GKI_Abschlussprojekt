@@ -50,18 +50,25 @@
     <h5><span class="package-name">app</span> <span class="package-kind">package</span></h5>
     <ol>
           <li class="section-title">Libraries</li>
-          <li><a href="magic_rainbow_ball_ball/magic_rainbow_ball_ball-library.html">ball</a></li>
+          <li><a href="ball_ball/ball_ball-library.html">ball</a></li>
+          <li><a href="ball/ball-library.html">ball</a></li>
           <li><a href="frontend_ball_and_cube_detection_page/frontend_ball_and_cube_detection_page-library.html">ball_and_cube_detection_page</a></li>
           <li><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html">ball_state_detection_page</a></li>
+          <li><a href="cube/cube-library.html">cube</a></li>
           <li><a href="frontend_cube_state_detection_page/frontend_cube_state_detection_page-library.html">cube_state_detection_page</a></li>
           <li><a href="util_detection/util_detection-library.html">detection</a></li>
-          <li><a href="magic_rainbow_ball_magic_rainbow_ball/magic_rainbow_ball_magic_rainbow_ball-library.html">magic_rainbow_ball</a></li>
+          <li><a href="frontend/frontend-library.html">frontend</a></li>
+          <li><a href="ball_magic_rainbow_ball/ball_magic_rainbow_ball-library.html">magic_rainbow_ball</a></li>
           <li><a href="main/main-library.html">main</a></li>
-          <li><a href="magic_rainbow_ball_move/magic_rainbow_ball_move-library.html">move</a></li>
+          <li><a href="ball_move/ball_move-library.html">move</a></li>
           <li><a href="frontend_object_detection_app/frontend_object_detection_app-library.html">object_detection_app</a></li>
           <li><a href="frontend_object_detection_camera/frontend_object_detection_camera-library.html">object_detection_camera</a></li>
-          <li><a href="magic_rainbow_ball_ring/magic_rainbow_ball_ring-library.html">ring</a></li>
-          <li><a href="rubics_cube_rubics_cube_analyser/rubics_cube_rubics_cube_analyser-library.html">rubics_cube_analyser</a></li>
+          <li><a href="ball_ring/ball_ring-library.html">ring</a></li>
+          <li><a href="cube_rubics_cube/cube_rubics_cube-library.html">rubics_cube</a></li>
+          <li><a href="cube_rubics_cube_analyse/cube_rubics_cube_analyse-library.html">rubics_cube_analyse</a></li>
+          <li><a href="cube_rubics_cube_color/cube_rubics_cube_color-library.html">rubics_cube_color</a></li>
+          <li><a href="cube_rubics_cube_side/cube_rubics_cube_side-library.html">rubics_cube_side</a></li>
+          <li><a href="util/util-library.html">util</a></li>
           <li class="section-title">Dart</li>
           <li><a href="dart-ui/dart-ui-library.html">dart:ui</a></li>
           <li class="section-subtitle">Core</li>
@@ -95,75 +102,24 @@
           <span class="name "><a href="frontend_ball_state_detection_page/BallStateDetectionPage-class.html">BallStateDetectionPage</a></span>         
         </dt>
         <dd>
-          
+          Defines the structure of the UI, which allows the user to ...
+... detect the State of a <a href="ball_magic_rainbow_ball/MagicRainbowBall-class.html">MagicRainbowBall</a> via the smartphone camera.
+... solving the detected <a href="ball_magic_rainbow_ball/MagicRainbowBall-class.html">MagicRainbowBall</a>.
+... testing if the detected <a href="ball_magic_rainbow_ball/MagicRainbowBall-class.html">MagicRainbowBall</a> is consistent.
+... exporting the detected <a href="ball_magic_rainbow_ball/MagicRainbowBall-class.html">MagicRainbowBall</a> as json.
         </dd>
         <dt id="RingStatePainter">
           <span class="name "><a href="frontend_ball_state_detection_page/RingStatePainter-class.html">RingStatePainter</a></span>         
         </dt>
         <dd>
-          
+          <code>CustomPainter</code> that can be used in the <code>CustomPaint</code> widget to visualize the state of a <a href="ball_ring/Ring.html">Ring</a> in the UI.
         </dd>
       </dl>
     </section>
 
 
 
-    <section class="summary offset-anchor" id="properties">
-      <h2>Properties</h2>
 
-      <dl class="properties">
-        <dt id="colors" class="property">
-          <span class="name"><a href="frontend_ball_state_detection_page/colors.html">colors</a></span>
-          <span class="signature">&#8596; <a href="dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter">dynamic</span>, <span class="type-parameter"><a href="dart-ui/Color-class.html">Color</a></span>&gt;</span></span>         
-        </dt>
-        <dd>
-          
-                  <div class="features">read / write</div>
-</dd>
-        <dt id="on" class="property">
-          <span class="name"><a href="frontend_ball_state_detection_page/on.html">on</a></span>
-          <span class="signature">&#8596; dynamic</span>         
-        </dt>
-        <dd>
-          
-                  <div class="features">read / write</div>
-</dd>
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor" id="functions">
-      <h2>Functions</h2>
-
-      <dl class="callables">
-        <dt id="Ball" class="callable">
-          <span class="name"><a href="frontend_ball_state_detection_page/Ball.html">Ball</a></span><span class="signature">(<wbr>)
-            <span class="returntype parameter">&#8594; dynamic</span>
-          </span>
-                  </dt>
-        <dd>
-          
-                  
-</dd>
-        <dt id="ballFromDetection" class="callable">
-          <span class="name"><a href="frontend_ball_state_detection_page/ballFromDetection.html">ballFromDetection</a></span><span class="signature">(<wbr><span class="parameter" id="ballFromDetection-param-detection"><span class="type-annotation"><a href="util_detection/Detection-class.html">Detection</a></span> <span class="parameter-name">detection</span></span>)
-            <span class="returntype parameter">&#8594; dynamic</span>
-          </span>
-                  </dt>
-        <dd>
-          Assigns every possible Ball Detection (assuming the model is right) the corresponding Ball.
-                  
-</dd>
-        <dt id="ringFromDetection" class="callable">
-          <span class="name"><a href="frontend_ball_state_detection_page/ringFromDetection.html">ringFromDetection</a></span><span class="signature">(<wbr><span class="parameter" id="ringFromDetection-param-detection"><span class="type-annotation"><a href="util_detection/Detection-class.html">Detection</a></span> <span class="parameter-name">detection</span></span>)
-            <span class="returntype parameter">&#8594; dynamic</span>
-          </span>
-                  </dt>
-        <dd>
-          /// Assigns every possible Rinf Detection (assuming the model is right) the corresponding Ring.
-                  
-</dd>
-      </dl>
-    </section>
 
 
 
@@ -179,14 +135,7 @@
     
     
     
-      <li class="section-title"><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html#properties">Properties</a></li>
-      <li><a href="frontend_ball_state_detection_page/colors.html">colors</a></li>
-      <li><a href="frontend_ball_state_detection_page/on.html">on</a></li>
     
-      <li class="section-title"><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html#functions">Functions</a></li>
-      <li><a href="frontend_ball_state_detection_page/Ball.html">Ball</a></li>
-      <li><a href="frontend_ball_state_detection_page/ballFromDetection.html">ballFromDetection</a></li>
-      <li><a href="frontend_ball_state_detection_page/ringFromDetection.html">ringFromDetection</a></li>
     
     
     
