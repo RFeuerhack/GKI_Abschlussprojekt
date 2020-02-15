@@ -21,7 +21,7 @@
 
 ## app
 
-Enthält die App, mit welcher z.B. der Zustand eines Magic Rainbow Balls erkannt werden kann.
+Enthält die App, mit welcher unter anderem der Zustand eines Magic Rainbow Balls erkannt werden kann.
 
 ## blender
 
@@ -41,11 +41,11 @@ Die im Wiki vorhandene Dokumentation unseres Projektes als .docx Abschrift.
 
 ## labeled_images
 
-Unsere Trainingsdaten.
+Die von uns erzeugten Trainingsdaten.
 
 ## presentation
 
-Unsere Präsentation des Projektes.
+Die Präsentation des Projektes.
 
 ## License
 
