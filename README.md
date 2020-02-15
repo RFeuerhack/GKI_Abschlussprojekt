@@ -5,6 +5,9 @@
 >von **Robert Feuerhack, Felix Brübach und Philipp Alexander Händler**
 ---
 
+> [Hier](https://github.com/RFeuerhack/GKI_Abschlussprojekt/wiki) geht es zum Wiki.
+> [Hier](https://rfeuerhack.github.io/GKI_Abschlussprojekt/) geht es zu Softwaredokumentation.
+
 ## Inhalt dieses Repositorys
 
 1. [app](#app)
@@ -25,11 +28,11 @@ Enthält die Blender Dateien für das 3D-Modell des Rubic's Cubes und des Magic 
 
 ## docs
 
-Enthält die [Codedokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
+Enthält die [Softwaredokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
 
 ## wiki/images
 
-Enthält die im Wiki verwendetet Bilder.
+Enthält die im [Wiki](https://github.com/RFeuerhack/GKI_Abschlussprojekt/wiki) verwendetet Bilder.
 
 ## documentation
 
