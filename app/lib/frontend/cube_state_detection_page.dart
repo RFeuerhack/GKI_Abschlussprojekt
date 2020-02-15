@@ -1,14 +1,20 @@
+import 'package:app/cube/rubics_cube.dart';
+import 'package:app/cube/rubics_cube_analyse.dart';
+import 'package:app/cube/rubics_cube_color.dart';
+import 'package:app/cube/rubics_cube_side.dart';
+import 'package:app/util/detection.dart';
 import 'package:camera/camera.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:app/cube/rubics_cube_analyser.dart';
-import 'package:app/util/detection.dart';
 
 import 'object_detection_camera.dart';
 
+/// Defines the structure of the UI, which allows the user to detect the State of a [RubicsCube] via the smartphone camera.
 class CubeStateDetectionPage extends StatefulWidget {
+  /// The camera that is used for the detection task.
   final CameraController cameraController;
 
+  /// Default constructor.
   CubeStateDetectionPage(this.cameraController);
 
   @override
@@ -16,16 +22,25 @@ class CubeStateDetectionPage extends StatefulWidget {
 }
 
 class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
+  /// The camera that is used for the detection task.
   CameraController cameraController;
-  RubicsCubeSideState rubicsCubeSide;
+  /// Currently detected state of the [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSide;
 
-  RubicsCubeSideState rubicsCubeSideBlue;
-  RubicsCubeSideState rubicsCubeSideOrange;
-  RubicsCubeSideState rubicsCubeSideGreen;
-  RubicsCubeSideState rubicsCubeSideRed;
-  RubicsCubeSideState rubicsCubeSideYellow;
-  RubicsCubeSideState rubicsCubeSideWhite;
+  /// Saved state of the detected blue [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideBlue;
+  /// Saved state of the detected orange [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideOrange;
+  /// Saved state of the detected green [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideGreen;
+  /// Saved state of the detected red [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideRed;
+  /// Saved state of the detected yellow [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideYellow;
+  /// Saved state of the detected white [RubicsCubeSide].
+  RubicsCubeSide rubicsCubeSideWhite;
 
+  /// Default constructor.
   _CubeStateDetectionPageState(this.cameraController);
 
   @override
@@ -134,7 +149,7 @@ class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
                   icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
                   onPressed: rubicsCubeSideBlue != null && rubicsCubeSideOrange != null && rubicsCubeSideGreen != null && rubicsCubeSideRed != null && rubicsCubeSideYellow != null && rubicsCubeSideWhite != null
                       ? () {
-                          RubicsCubeState rubicsCube = RubicsCubeState(
+                          RubicsCube rubicsCube = RubicsCube(
                             rubicsCubeSideBlue,
                             rubicsCubeSideOrange,
                             rubicsCubeSideGreen,
@@ -160,10 +175,14 @@ class _CubeStateDetectionPageState extends State<CubeStateDetectionPage> {
   }
 }
 
+/// [CustomPainter] that can be used in the [CustomPaint] widget to visualize the state of a [RubicsCubeSide] in the UI.
 class CubeStatePainter extends CustomPainter {
-  RubicsCubeSideState rubicsCubeSide;
+  /// The [RubicsCubeSide] to visualize.
+  RubicsCubeSide rubicsCubeSide;
+  /// [Color] of the center tile of a [RubicsCubeSide].
   Color centerColor;
 
+  /// Default Constructor.
   CubeStatePainter(this.rubicsCubeSide, this.centerColor);
 
   @override

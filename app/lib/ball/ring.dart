@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' as flutter;
 
-/// Contains all colors of the Rings of the Magic Raibow Ball.
+/// Contains all colors of the [Ring]s of the [MagicRaibowBall].
 enum Ring {
   WHITE,
   BLACK,
@@ -16,15 +16,19 @@ enum Ring {
   CYAN,
 }
 
+/// Extension of [Ring].
 extension RingExtension on Ring {
+  /// Gives access to the [neighborMap].
   List<Ring> get neighbors => neighborMap[this];
 
+  /// Gives access to the [distanceMap].
   int distance(Ring ring) => distanceMap[this][ring];
 
+  /// Gives access to [_ringColors].
   flutter.Color get color => _ringColors[this];
 }
 
-/// Contains information regarding every Rings neighbors.
+/// Contains information regarding every [Ring]s neighbors.
 Map<Ring, List<Ring>> neighborMap = {
   Ring.WHITE: [Ring.PURPLE, Ring.LIGHT_BLUE, Ring.BLACK, Ring.CYAN, Ring.DARK_BLUE],
   Ring.BLACK: [Ring.WHITE, Ring.LIGHT_BLUE, Ring.RED, Ring.YELLOW, Ring.CYAN],
@@ -40,7 +44,7 @@ Map<Ring, List<Ring>> neighborMap = {
   Ring.CYAN: [Ring.LIGHT_GREEN, Ring.DARK_BLUE, Ring.WHITE, Ring.BLACK, Ring.YELLOW],
 };
 
-/// Contains the distances between each and every Ring.
+/// Contains the distances between each and every [Ring].
 Map<Ring, Map<Ring, int>> distanceMap = {
   Ring.WHITE: {
     Ring.WHITE: 0,
@@ -212,7 +216,7 @@ Map<Ring, Map<Ring, int>> distanceMap = {
   },
 };
 
-/// Assigns every ring a color, which is usable in Flutter.
+/// Assigns every [Ring] a color, which is usable in Flutter.
 Map<Ring, flutter.Color> _ringColors = {
   Ring.WHITE: flutter.Colors.grey,
   Ring.BLACK: flutter.Colors.black,

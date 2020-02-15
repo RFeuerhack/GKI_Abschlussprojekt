@@ -1,26 +1,31 @@
+import 'package:app/frontend/ball_and_cube_detection_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:app/frontend/ball_and_cube_detection_page.dart';
 import 'package:tflite/tflite.dart';
 
 import 'ball_state_detection_page.dart';
 import 'cube_state_detection_page.dart';
 
+/// This is the root widget of the Flutter app.
 class ObjectDetectionApp extends StatefulWidget {
   @override
   _ObjectDetectionAppState createState() => _ObjectDetectionAppState();
 }
 
+/// Represents all 3 app states.
 enum ObjectDetectionAppModes {
   BALL_AND_CUBE_DETECTION,
   BALL_STATE_DETECTION,
   CUBE_STATE_DETECTION,
 }
 
+/// State of the [ObjectDetectionApp].
 class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
+  /// Holds current mode of the app.
   ObjectDetectionAppModes mode = ObjectDetectionAppModes.BALL_AND_CUBE_DETECTION;
 
+  /// Returns a title depending on the current mode, that can be used in the UI.
   String title() {
     switch (mode) {
       case ObjectDetectionAppModes.BALL_AND_CUBE_DETECTION:
@@ -119,7 +124,10 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return BallAndCubeDetectionPage(cameraController);
                             } else {
-                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
+                              return Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(),
+                              );
                             }
                           },
                         );
@@ -133,7 +141,10 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return BallStateDetectionPage(cameraController);
                             } else {
-                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
+                              return Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(),
+                              );
                             }
                           },
                         );
@@ -147,19 +158,28 @@ class _ObjectDetectionAppState extends State<ObjectDetectionApp> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               return CubeStateDetectionPage(cameraController);
                             } else {
-                              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
+                              return Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(),
+                              );
                             }
                           },
                         );
                     }
                     throw Exception();
                   } else {
-                    return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
+                    return Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               );
             } else {
-              return Align(alignment: Alignment.center, child: CircularProgressIndicator(),);
+              return Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ),

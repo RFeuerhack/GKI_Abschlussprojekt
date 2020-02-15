@@ -1,5 +1,3 @@
-/// This dart file contains the main function of the app.
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 

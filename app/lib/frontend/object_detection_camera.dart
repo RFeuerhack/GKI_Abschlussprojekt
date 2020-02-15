@@ -1,33 +1,46 @@
 import 'dart:ui';
 
+import 'package:app/util/detection.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:app/util/detection.dart';
 import 'package:tflite/tflite.dart';
 
 /// Custom widget that contains a camera view in which detections are marked with black rectangles surrounding them.
 /// Disclaimer: In order for this widget to work there has to be a model loaded into the TFLite plugin.
 class ObjectDetectionCamera extends StatefulWidget {
+  /// The camera that is used for the detection task.
   final CameraController cameraController;
+  /// [Function] that gets called, when something is detected.
   final Function onDetection;
+  /// Threshhold for confidence, that needs to be surpassed in order for a detection to be accepted.
   final double threshhold;
+  /// [Function] that gets called, when nothing is detected.
   final Function onNoDetection;
 
+  /// Default constructor.
   ObjectDetectionCamera(this.cameraController, this.onDetection, this.threshhold, [this.onNoDetection]);
 
   @override
   _ObjectDetectionCameraState createState() => _ObjectDetectionCameraState(cameraController, onDetection, threshhold, onNoDetection);
 }
 
+/// State of the [ObjectDetectionCamera].
 class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
+  /// The camera that is used for the detection task.
   CameraController cameraController;
+  /// [Function] that gets called, when something is detected.
   Function onDetection;
+  /// Threshhold for confidence, that needs to be surpassed in order for a detection to be accepted.
   double threshhold;
+  /// [Function] that gets called, when nothing is detected.
   Function onNoDetection;
 
+  /// Default constructor.
   _ObjectDetectionCameraState(this.cameraController, this.onDetection, this.threshhold, this.onNoDetection);
 
+  /// [bool] that indicates whether or not the TFLite plugin is busy with analyzing a frame.
   bool isDetecting = false;
+  /// Contains all current [Detection]s.
   List<Detection> detections = [];
 
   @override
@@ -77,10 +90,14 @@ class _ObjectDetectionCameraState extends State<ObjectDetectionCamera> {
   }
 }
 
+/// [CustomPainter] that can be used in the [CustomPaint] widget and laid over a [CameraPreview] to mark detections in the video.
 class ObjectDetectionPainter extends CustomPainter {
+  /// All detections that should get marked.
   List<Detection> detections;
+  /// Treshhold which the confindenceScore of a [Detection] has to surpass in order to get marked.
   double threshhold;
 
+  /// Default constructor.
   ObjectDetectionPainter(this.detections, this.threshhold);
 
   @override

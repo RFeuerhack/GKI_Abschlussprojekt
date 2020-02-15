@@ -1,17 +1,18 @@
 import 'ball.dart';
 import 'ring.dart';
 
-/// Represents a move on the magic rainbow ball.
+/// Represents a move that can be applied to a [MagicRainbowBall].
 class Move {
-  /// Ball which is moved.
+  /// [Ball] which is moved.
   Ball ball;
 
-  /// Ring the ball is moved from.
+  /// [Ring] the [Ball] is moved from.
   Ring from;
 
-  /// Ring the ball is moved to.
+  /// [Ring] the [Ball] is moved to.
   Ring to;
 
+  /// Defaul constructor.
   Move(
     this.ball,
     this.from,
