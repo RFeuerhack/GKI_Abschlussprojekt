@@ -29,7 +29,7 @@ Enthält die Blender Dateien für das 3D-Modell des Rubic's Cubes und des Magic 
 
 ## docs
 
-Enthält die [Softwaredokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
+Enthält die [Softwaredokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/index.html).
 
 ## wiki/images
 
