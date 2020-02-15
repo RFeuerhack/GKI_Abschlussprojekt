@@ -10,7 +10,7 @@
 1. [app](#app)
 2. [blender](#blender)
 3. [docs](#docs)
-4. [wiki/Images](#wiki/images)
+4. [wiki/images](#wiki/images)
 5. [documentation](#documentation)
 6. [labeled_images](#labeled_images)
 7. [presentation](#presentation)
