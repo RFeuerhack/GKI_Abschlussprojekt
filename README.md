@@ -1,6 +1,6 @@
 # Grunlagen der künstlichen Intelligenz: Abschlussprojekt
 
-> Rubik's Cube und Magic Rainbow Ball Object Detection.
+> Rubik's Cube und Magic Rainbow Ball Object Detection
 > <br>
 > by **Robert Feuerhack, Felix Brübach and Philipp Alexander Händler**
 ---
