@@ -17,19 +17,19 @@
 
 ## app
 
-Alle wichtigen Daten für die App sind in diesem Ordner enthalten 
+Enthält die App mit der unteranderem der Zustand eines Rubic's Cubes und des Magic Rainbow Balls erkannt werden kann.
 
 ## blender
 
-Alle Blender Dateien für die erstellung des 3D-Modells sind in diesem Ordner.
+Enthält die Blender Dateien für das 3D-Modell des Rubic's Cubes und des Magic Rainbow Balls.
 
 ## docs
 
-Die für die [Codedokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/) notwendigen Seiten sind hier abgelegt. 
+Enthält die [Codedokumnetation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
 
-## wiki/Images
+## wiki/images
 
-Die im Wiki verwendeten Bilder sind in diesem Ordner enthalten.
+Enthält die im Wiki verwendetet Bilder.
 
 ## documentation
 
@@ -37,11 +37,11 @@ Die im Wiki vorhandene Dokumentation unseres Projektes als .docx Abschrift.
 
 ## labeled_images
 
-Die genutzen Trainingsdaten als eine .rar Datei verpackt.
+Unsere Trainingsdaten.
 
 ## presentation
 
-Unsere Präsentation des Projektes als .pptx Datei.
+Unsere Präsentation des Projektes.
 
 ## License
 
