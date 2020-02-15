@@ -17,7 +17,7 @@
 
 ## app
 
-Enthält die App mit der unteranderem der Zustand eines Rubic's Cubes und des Magic Rainbow Balls erkannt werden kann.
+Enthält die App, mit welcher der Zustand eines Rubic's Cubes und des Magic Rainbow Balls erkannt werden kann.
 
 ## blender
 
