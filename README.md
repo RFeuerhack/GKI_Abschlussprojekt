@@ -41,11 +41,11 @@ Die im Wiki vorhandene Dokumentation unseres Projektes als .docx Abschrift.
 
 ## labeled_images
 
-Unsere Trainingsdaten.
+Die von uns erzeugten Trainingsdaten.
 
 ## presentation
 
-Unsere Präsentation des Projektes.
+Die Präsentation des Projektes.
 
 ## License
 
