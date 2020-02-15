@@ -2,8 +2,12 @@
 
 > Rubik's Cube und Magic Rainbow Ball Object Detection
 > <br>
-> by **Robert Feuerhack, Felix Brübach and Philipp Alexander Händler**
+>von **Robert Feuerhack, Felix Brübach und Philipp Alexander Händler**
 ---
+
+> [Hier](https://github.com/RFeuerhack/GKI_Abschlussprojekt/wiki) geht es zum Wiki.
+> <br>
+> [Hier](https://rfeuerhack.github.io/GKI_Abschlussprojekt/) geht es zu Softwaredokumentation.
 
 ## Inhalt dieses Repositorys
 
@@ -17,7 +21,7 @@
 
 ## app
 
-Enthält die App mit der unteranderem der Zustand eines Rubic's Cubes und des Magic Rainbow Balls erkannt werden kann.
+Enthält die App, mit welcher z.B. der Zustand eines Magic Rainbow Balls erkannt werden kann.
 
 ## blender
 
@@ -25,11 +29,11 @@ Enthält die Blender Dateien für das 3D-Modell des Rubic's Cubes und des Magic 
 
 ## docs
 
-Enthält die [Codedokumnetation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
+Enthält die [Softwaredokumentation](https://rfeuerhack.github.io/GKI_Abschlussprojekt/).
 
 ## wiki/images
 
-Enthält die im Wiki verwendetet Bilder.
+Enthält die im [Wiki](https://github.com/RFeuerhack/GKI_Abschlussprojekt/wiki) verwendetet Bilder.
 
 ## documentation
 
