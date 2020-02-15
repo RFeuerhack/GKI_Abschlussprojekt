@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ballFromDetection function from the ball_state_detection_page library, for the Dart programming language.">
+  <title>ballFromDetection function - ball_state_detection_page library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="..">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+  
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="index.html">app</a></li>
+    <li><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html">ball_state_detection_page</a></li>
+    <li class="self-crumb">ballFromDetection function</li>
+  </ol>
+  <div class="self-name">ballFromDetection</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="index.html">app</a></li>
+      <li><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html">ball_state_detection_page</a></li>
+      <li class="self-crumb">ballFromDetection function</li>
+    </ol>
+    
+    <h5>ball_state_detection_page library</h5>
+    <ol>
+      <li class="section-title"><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html#classes">Classes</a></li>
+      <li><a href="frontend_ball_state_detection_page/BallStateDetectionPage-class.html">BallStateDetectionPage</a></li>
+      <li><a href="frontend_ball_state_detection_page/RingStatePainter-class.html">RingStatePainter</a></li>
+    
+    
+    
+      <li class="section-title"><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html#properties">Properties</a></li>
+      <li><a href="frontend_ball_state_detection_page/colors.html">colors</a></li>
+      <li><a href="frontend_ball_state_detection_page/on.html">on</a></li>
+    
+      <li class="section-title"><a href="frontend_ball_state_detection_page/frontend_ball_state_detection_page-library.html#functions">Functions</a></li>
+      <li><a href="frontend_ball_state_detection_page/Ball.html">Ball</a></li>
+      <li><a href="frontend_ball_state_detection_page/ballFromDetection.html">ballFromDetection</a></li>
+      <li><a href="frontend_ball_state_detection_page/ringFromDetection.html">ringFromDetection</a></li>
+    
+    
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-function">ballFromDetection</span> function </h1></div>
+
+    <section class="multi-line-signature">
+        <span class="returntype">dynamic</span>
+                <span class="name ">ballFromDetection</span>
+(<wbr><span class="parameter" id="ballFromDetection-param-detection"><span class="type-annotation"><a href="util_detection/Detection-class.html">Detection</a></span> <span class="parameter-name">detection</span></span>)
+    </section>
+    <section class="desc markdown">
+      <p>Assigns every possible Ball Detection (assuming the model is right) the corresponding Ball.</p>
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span></h2>
+      <pre class="language-dart"><code class="language-dart">Ball ballFromDetection(Detection detection) {
+  switch (detection.detectedClass) {
+    case &quot;empty&quot;:
+      return Ball.EMPTY;
+    case &quot;blackball&quot;:
+      return Ball.BLACK;
+    case &quot;lightblueball&quot;:
+      return Ball.LIGHT_BLUE;
+    case &quot;darkblueball&quot;:
+      return Ball.DARK_BLUE;
+    case &quot;lightgreenball&quot;:
+      return Ball.LIGHT_GREEN;
+    case &quot;darkgreenball&quot;:
+      return Ball.DARK_GREEN;
+    case &quot;yellowball&quot;:
+      return Ball.YELLOW;
+    case &quot;orangeball&quot;:
+      return Ball.ORANGE;
+    case &quot;redball&quot;:
+      return Ball.RED;
+    case &quot;pinkball&quot;:
+      return Ball.PINK;
+    case &quot;purpleball&quot;:
+      return Ball.PURPLE;
+    case &quot;cyanball&quot;:
+      return Ball.CYAN;
+    default:
+      return null;
+  }
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    app 1.0.0+1
+  </span>
+
+  
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+
+
+</body>
+
+</html>
